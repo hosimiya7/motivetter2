@@ -7,6 +7,10 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+import router from './router';
+import store from './store/index';
+
+import Vuex from 'vuex';
 
 /**
  * The following block of code may be used to automatically register your
@@ -20,6 +24,15 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('Top', require('./components/Top.vue').default);
+Vue.component('Commands', require('./components/Commands.vue').default);
+Vue.component('Chara', require('./components/Chara.vue').default);
+Vue.component('Message', require('./components/Message.vue').default);
+Vue.component('Achieve', require('./components/Achieve.vue').default);
+Vue.component('MyCanvas', require('./components/MyCanvas.vue').default);
+Vue.component('Goal', require('./components/Goal.vue').default);
+
+Vue.use(Vuex);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -29,4 +42,6 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
+    store,
+    router
 });

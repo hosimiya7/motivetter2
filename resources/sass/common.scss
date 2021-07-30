@@ -1,0 +1,215 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+    text-align:center;
+    font-family: 'DotGothic16', sans-serif;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.flex {
+    display: flex;
+}
+
+h1 {
+    margin-top: 2em;
+}
+
+.main-wrapper {
+    background-color: $main_color;
+    width: 800px;
+    height: 450px;
+    margin: 3em auto 0 auto;
+    border: 1px solid $border_color;
+    border-radius: 20px;
+    .command {
+        border: 2px solid $border_color;
+        border-radius: 10px;
+        margin: 1em 0 0 1em;
+        text-align: left;
+        padding: 0.5em 1em;
+    }
+
+    .goal {
+        border: 2px solid $border_color;
+        border-radius: 10px;
+        padding: 0.5em;
+        width: 45%;
+        margin: auto;
+        margin-top: 1em;
+    }
+
+    .status {
+        margin: 1em 1em 0 0;
+        font-size: 0.8em;
+    }
+
+    .char {
+        margin: 1em auto;
+    }
+
+    .message {
+        border: 1px solid $border_color;
+        border-radius: 10px;
+        height: 6.5em;
+        margin: 0 1em 0 1em;
+    }
+}
+
+.commands{
+    width: 120px;
+    height: 100px;
+    margin: 0;
+    .command{
+        border: none;
+        margin: 0;
+        padding: 0.5em 0 0 1em;
+        font-size: 0.8em;
+        &:first-child{
+            padding-top: 0.2em;
+        }
+    }
+    .active{
+        position: relative;
+        &::before{
+            display: block;
+            content: "▲";
+            transform: rotate(90deg);
+            position: absolute;
+            left: -0.5em;
+        }
+    }
+}
+
+.message{
+    p{
+        padding-top: 0.5em;
+    }
+}
+
+.message-goal{
+    border: none;
+    font-size: 0.8em;
+    h3{
+        font-size: 1em;
+        font-weight: normal;
+        text-align: left;
+        margin: 0.5em 0 0 2em;
+    }
+    h4{
+        font-weight: inherit;
+        text-align: left;
+        margin: 0 0 0 6em;
+        position: relative;
+        &::before{
+            position: absolute;
+            content: "▲";
+            transform: rotate(90deg);
+            left: -1em;
+        }
+    }
+    input{
+        outline: none;
+        text-align: left;
+    }
+    .large-goal{
+        margin: 0.5em 0;
+        input{
+            width: 300px;
+        }
+    }
+    .small-goal{
+        input{
+            &:nth-child(2){
+                width: 200px;
+            }
+            &:nth-child(3){
+                width: 20px;
+            }
+            &:nth-child(4){
+                width: 50px;
+            }
+        }
+    }
+}
+
+.message-achieve{
+    border: none;
+    font-size: 0.8em;
+    h3{
+        font-size: 1em;
+        font-weight: normal;
+        text-align: left;
+        margin: 0.5em 0 0 2em;
+    }
+    input{
+        width: 50px;
+    }
+    span{
+        &:first-child{
+            position: relative;
+        }
+        &::before{
+            position: absolute;
+            content: "▲";
+            transform: rotate(90deg);
+            left: -1.5em;
+        }
+    }
+}
+
+.message-chara{
+    border: none;
+    font-size: 0.8em;
+    text-align: left;
+    display: inline;
+    h3{
+        font-size: 1em;
+        font-weight: normal;
+        text-align: left;
+        margin: 0.5em 0 0 2em;
+    }
+    .chara-index{
+        margin: 1em 6em 0 0;
+        .chara-index-first, .chara-index-second{
+            margin-top: 0.5em;
+            span{
+                &:first-child{
+                    margin-right: 19em;
+                }
+            }
+        }
+    }
+}
+
+.message-game{
+    border: none;
+    font-size: 0.8em;
+    text-align: left;
+    display: inline;
+    h3{
+        font-size: 1em;
+        font-weight: normal;
+        text-align: left;
+        margin: 0.5em 0 0 2em;
+    }
+    .game-index{
+        margin: 1em 6em 0 0;
+        .game-index-first, .game-index-second{
+            margin-top: 0.5em;
+            span{
+                &:first-child{
+                    margin-right: 19em;
+                }
+            }
+        }
+    }
+}
