@@ -5,7 +5,7 @@
 
         <div class="achieve">
             <span>入力:</span>
-            <input type="text" name="" id="">
+            <input type="text" name="" id="" autofocus>
             <span>(単位) 達成！！</span>
         </div>
 
