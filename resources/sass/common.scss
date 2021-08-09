@@ -149,15 +149,18 @@ h1 {
         text-align: left;
         outline: none;
     }
-    span{
-        &:first-child{
-            position: relative;
-        }
+    .achieve{
+        margin: 0.3em 0;
+    }
+    .active{
+        position: relative;
         &::before{
-            position: absolute;
+            display: block;
             content: "▲";
             transform: rotate(90deg);
-            left: -1.5em;
+            position: absolute;
+            left: 21em;
+            top: 0em;
         }
     }
 }

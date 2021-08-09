@@ -40,10 +40,11 @@ export default {
                     this.$store.commit('setSelectedCommand', 4)
                 }
             }
-            // バック　戻る
-            if(e.keyCode === 8){
+            // ESC　戻る
+            if(e.keyCode === 27 && this.$store.state.isInputMode === false){
                 this.$store.commit('setSelectedCommand', 0)
             }
+
         }
     }
 }

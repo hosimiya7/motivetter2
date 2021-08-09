@@ -6,7 +6,8 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
     state: {
         selectedCursor: 1,
-        selectedCommand: 0
+        selectedCommand: 0,
+        isInputMode: false,
     },
     mutations: {
         increment(state) {
