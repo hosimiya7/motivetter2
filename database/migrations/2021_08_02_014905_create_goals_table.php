@@ -14,11 +14,12 @@ class CreateGoalsTable extends Migration
     public function up()
     {
         Schema::create('goals', function (Blueprint $table) {
+            // todo: user_idを追加
             $table->bigIncrements('id');
-            $table->string('large_goal')->comment('大目標');
-            $table->string('small_goal')->comment('小目標');
+            $table->string('goal')->comment('目標');
             $table->integer('number')->comment('数値');
             $table->string('unit')->comment('単位');
+            $table->timestamps();
         });
     }
 
