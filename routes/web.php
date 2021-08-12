@@ -19,3 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::group(['middleware' => 'auth'], function(){
+    Route::post('api/goal/create', 'GoalController@create')->name('goal.create');
+
+});
+
