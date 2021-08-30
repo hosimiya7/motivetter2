@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use SebastianBergmann\Environment\Console;
 
 class GoalController extends Controller
 {
@@ -19,4 +20,15 @@ class GoalController extends Controller
 
         return $goal;
     }
+
+    public function show(Request $request)
+    {
+
+        $user_id = Auth::id();
+        $goal = \App\Models\Goal::where('user_id', $user_id)->orderBy('created_at', 'desc')->first();
+
+        return $goal;
+
+    }
+
 }

@@ -7,7 +7,7 @@
                     <Commands></Commands>
                 </div>
                 <div class="goal">
-                    （〇〇を（数値）(単位)）21文字制限
+                    <span>{{ items.number }}</span><span>{{ items.unit }}</span><span>{{ items.goal }}</span>
                 </div>
                 <div class="status">
                     <ul>
@@ -32,12 +32,26 @@
 </template>
 
 <script lang="ts">
-import MyCanvas from './MyCanvas.vue'
-import Commands from './Commands.vue'
-export default {
-  components: {
-    MyCanvas,
-    Commands
-  }
-}
+    import MyCanvas from './MyCanvas.vue'
+    import Commands from './Commands.vue'
+    export default {
+        components: {
+            MyCanvas,
+            Commands
+        },
+        data() {
+            return{
+                items: [] //データ格納
+            }
+        },
+        mounted() {
+            window.axios.get('/api/goal/show')
+            .then(response =>{
+                this.items = response['data'];
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        }
+    }
 </script>
