@@ -5,7 +5,7 @@
 
         <div class="achieve" v-bind:class="{active: this.selectedAchieveCursor === 0}">
             <span>入力:</span>
-            <input type="text" name="" id="achieve" autofocus>
+            <input type="text" name="" id="achieve" v-model="achieve" placeholder="3">
             <span>(単位) 達成！！</span>
         </div>
         <div class="register" v-bind:class="{active: this.selectedAchieveCursor === 1}">
@@ -23,27 +23,35 @@ export default {
     data() {
         return {
             selectedAchieveCursor: 0,
+            isInputMode: false,
+            achieve: null,
         }
     },
     methods: {
         selectCommand(e) {
         //下
-            if(e.keyCode === 40 && this.selectedAchieveCursor < 1){
+            if(e.keyCode === 40 && this.selectedAchieveCursor < 1 && this.$store.state.isInputMode === false){
                 this.selectedAchieveCursor++
-                console.log(this.selectedAchieveCursor)
             }
         // 上
-            if(e.keyCode === 38 && this.selectedAchieveCursor > 0){
+            if(e.keyCode === 38 && this.selectedAchieveCursor > 0 && this.$store.state.isInputMode === false){
                 this.selectedAchieveCursor--
-                console.log(this.selectedAchieveCursor)
             }
+        // スペース
             if(e.keyCode === 32){
-                if(this.selectedGoalCursor === 0){
+
+                if(this.selectedAchieveCursor === 0){
                     document.getElementById("achieve").focus();
+                    this.$store.state.isInputMode = true
                 }
-                if(this.selectedGoalCursor === 1){
+                if(this.selectedAchieveCursor === 1){
 
                 }
+            }
+        // ESC
+             if(e.keyCode === 27 && this.$store.state.isInputMode === true){
+                this.$store.state.isInputMode = false
+                document.activeElement.blur()
             }
         }
     }

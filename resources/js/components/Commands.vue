@@ -17,12 +17,12 @@ export default {
             //下
             if(e.keyCode === 40 && this.$store.state.selectedCommand === 0){
                 this.$store.commit('increment')
-                // console.log(this.$store.state.selectedCursor)
+
             }
             // 上
             if(e.keyCode === 38 && this.$store.state.selectedCommand === 0){
                 this.$store.commit('decrement')
-                // console.log(this.$store.state.selectedCursor)
+
             }
             // スペース　決定
             if(e.keyCode === 32){

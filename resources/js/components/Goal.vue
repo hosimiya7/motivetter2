@@ -64,7 +64,8 @@ export default {
                     this.$store.state.isInputMode = true
                 }
                 if(this.selectedGoalCursor === 3){
-                    // 登録
+
+                    // 登録・if文で要素が入っていたら送る。それ以外はエラーを出す
                     window.axios.post('api/goal/create', {
                         goal: this.goal,
                         number: this.number,
@@ -76,6 +77,7 @@ export default {
                     .catch(function (error) {
                         console.log(error);
                     });
+
                 }
             }
             if(e.keyCode === 27 && this.$store.state.isInputMode === true){
