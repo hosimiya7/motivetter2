@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddUserIdGoalsTable extends Migration
+class CreateCharacterTemplatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class AddUserIdGoalsTable extends Migration
      */
     public function up()
     {
-        Schema::table('goals', function (Blueprint $table) {
-
-            $table->unsignedBigInteger('user_id')->comment('ユーザーid');
+        Schema::create('character_templates', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->string('lines')->comment('セリフ');
+            $table->timestamps();
         });
     }
 
@@ -26,8 +28,6 @@ class AddUserIdGoalsTable extends Migration
      */
     public function down()
     {
-        Schema::table('goals', function (Blueprint $table) {
-            $table->dropColumn('user_id');
-        });
+        Schema::dropIfExists('character_templates');
     }
 }

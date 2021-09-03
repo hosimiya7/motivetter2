@@ -14,7 +14,7 @@ class CreateGoalsTable extends Migration
     public function up()
     {
         Schema::create('goals', function (Blueprint $table) {
-            // todo: user_idを追加
+
             $table->bigIncrements('id');
             $table->string('goal')->comment('目標');
             $table->integer('number')->comment('数値');
