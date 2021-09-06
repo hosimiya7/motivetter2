@@ -15,12 +15,12 @@ class CreateCharactersTable extends Migration
     {
         Schema::create('characters', function (Blueprint $table) {
 
-            $table->unsignedBigInteger('user_id')->comment('ユーザーid');
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('exp');
-            $table->string('character_id');
-            $table->string('growth');
-            $table->integer('love');
+            $table->unsignedBigInteger('user_id')->comment('ユーザーid');
+            $table->unsignedBigInteger('character_template_id')->default(1);
+            $table->unsignedBigInteger('exp')->default(0);
+            $table->string('growth')->comment('成長段階');
+            $table->integer('love')->comment('好感度');
             $table->timestamps();
 
         });

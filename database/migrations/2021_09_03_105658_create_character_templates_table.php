@@ -16,7 +16,7 @@ class CreateCharacterTemplatesTable extends Migration
         Schema::create('character_templates', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('lines')->comment('セリフ');
+            $table->string('line')->comment('セリフ');
             $table->timestamps();
         });
     }
