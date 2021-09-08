@@ -19,8 +19,8 @@ class CreateCharactersTable extends Migration
             $table->unsignedBigInteger('user_id')->comment('ユーザーid');
             $table->unsignedBigInteger('character_template_id')->default(1);
             $table->unsignedBigInteger('exp')->default(0);
-            $table->string('growth')->comment('成長段階');
-            $table->integer('love')->comment('好感度');
+            $table->string('growth')->comment('成長段階')->default(0);
+            $table->integer('love')->comment('好感度')->default(1);
             $table->timestamps();
 
         });
