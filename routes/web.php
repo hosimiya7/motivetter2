@@ -22,4 +22,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware' => 'auth'], function () {
     Route::post('api/goal/create', 'GoalController@create')->name('goal.create');
     Route::get('api/goal/show', 'GoalController@show')->name('goal.show');
+    Route::get('api/character/show', 'CharacterController@show')->name('character.show');
 });
