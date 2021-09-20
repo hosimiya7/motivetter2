@@ -32,12 +32,32 @@ export default {
         //下
             if(e.keyCode === 40 && this.selectedCharaCursor < 3){
                 this.selectedCharaCursor++
-                console.log(this.selectedCharaCursor)
             }
         // 上
             if(e.keyCode === 38 && this.selectedCharaCursor > 0){
                 this.selectedCharaCursor--
-                console.log(this.selectedCharaCursor)
+            }
+        // スペース　決定
+            if(e.keyCode === 32){
+                if(this.selectedCharaCursor === 0){
+                    //ステータスを表示する
+                }
+                if(this.selectedCharaCursor === 1){
+                    //えさやり
+                    //餌画面を表示する
+                }
+                if(this.selectedCharaCursor === 2){
+                    //キャラ図鑑を表示する
+                }
+                if(this.selectedCharaCursor === 3){
+                    //おわかれ画面を表示する
+
+                }
+            }
+            if(e.keyCode === 27 && this.$store.state.isInputMode === true){
+                this.$store.state.isInputMode = false
+                // focusを外す。
+                document.activeElement.blur()
             }
         }
     }

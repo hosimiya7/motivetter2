@@ -82,6 +82,7 @@ export default {
             }
             if(e.keyCode === 27 && this.$store.state.isInputMode === true){
                 this.$store.state.isInputMode = false
+                // focusを外す。
                 document.activeElement.blur()
             }
         }

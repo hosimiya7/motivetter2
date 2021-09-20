@@ -38,6 +38,7 @@ export default {
                 }
                 if(this.$store.state.selectedCursor === 4 && this.$store.state.selectedCommand === 0){
                     this.$store.commit('setSelectedCommand', 4)
+
                 }
             }
             // ESC　戻る
