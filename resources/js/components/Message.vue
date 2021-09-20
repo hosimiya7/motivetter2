@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p v-if="this.$store.state.selectedCommand === 0">{{ character.character_template.line }}</p>
+        <p v-if="this.$store.state.selectedCommand === 0">{{ characters.character_template.line }}</p>
         <Goal v-if="this.$store.state.selectedCommand === 1"/>
         <Achieve v-if="this.$store.state.selectedCommand === 2"/>
         <Chara v-if="this.$store.state.selectedCommand === 3"/>
@@ -12,14 +12,13 @@
 export default {
 data() {
             return{
-                character: []
+                characters: []
             }
         },
         mounted() {
             window.axios.get('/api/character/show')
             .then(response =>{
-                this.character = response['data'];
-                console.log(response['data'])
+                this.characters = response['data'];
             })
             .catch(function (error) {
                 console.log(error);
