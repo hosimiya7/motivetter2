@@ -28,7 +28,6 @@ export default {
             if(e.keyCode === 32){
                 if(this.$store.state.selectedCursor === 1 && this.$store.state.selectedCommand === 0){
                     this.$store.commit('setSelectedCommand', 1)
-
                 }
                 if(this.$store.state.selectedCursor === 2 && this.$store.state.selectedCommand === 0){
                     this.$store.commit('setSelectedCommand', 2)

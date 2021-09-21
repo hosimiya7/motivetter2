@@ -32,6 +32,7 @@ Vue.component('Achieve', require('./components/Achieve.vue').default);
 Vue.component('MyCanvas', require('./components/MyCanvas.vue').default);
 Vue.component('Goal', require('./components/Goal.vue').default);
 Vue.component('Game', require('./components/Game.vue').default);
+Vue.component('CharaStatus', require('./components/CharaStatus.vue').default);
 
 Vue.use(Vuex);
 

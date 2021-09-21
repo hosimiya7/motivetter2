@@ -41,16 +41,23 @@ export default {
             if(e.keyCode === 32){
                 if(this.selectedCharaCursor === 0){
                     //ステータスを表示する
+                    this.$store.commit('setSelectedCommand', 5)
                 }
                 if(this.selectedCharaCursor === 1){
                     //えさやり
                     //餌画面を表示する
+                    //this.$store.commit('setSelectedCommand', 6)
+
                 }
                 if(this.selectedCharaCursor === 2){
                     //キャラ図鑑を表示する
+                    //this.$store.commit('setSelectedCommand', 7)
+
                 }
                 if(this.selectedCharaCursor === 3){
                     //おわかれ画面を表示する
+                    //this.$store.commit('setSelectedCommand', 8)
+
 
                 }
             }
