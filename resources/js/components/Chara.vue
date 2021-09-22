@@ -24,30 +24,32 @@ export default {
     },
     data() {
         return {
-            selectedCharaCursor: 0,
+            // 初回は普通なのに
+            selectedCharaCursor: 0
         }
     },
     methods: {
         selectCommand(e) {
         //下
-            if(e.keyCode === 40 && this.selectedCharaCursor < 3){
+            if(e.keyCode === 40 && this.selectedCharaCursor < 3 && this.$store.state.selectedCommand === 3){
                 this.selectedCharaCursor++
             }
         // 上
-            if(e.keyCode === 38 && this.selectedCharaCursor > 0){
+            if(e.keyCode === 38 && this.selectedCharaCursor > 0 && this.$store.state.selectedCommand === 3){
                 this.selectedCharaCursor--
             }
         // スペース　決定
-            if(e.keyCode === 32){
+            if(e.keyCode === 32 && this.$store.state.selectedCommand === 3){
+                console.log(this.$store.state.selectedCommand)
+                console.log(this.selectedCharaCursor)
                 if(this.selectedCharaCursor === 0){
-                    //ステータスを表示する
+                    // このタイミングで押してないのに走る謎
                     this.$store.commit('setSelectedCommand', 5)
+                    console.log(this.$store.state.selectedCommand)
+                    console.log(this.selectedCharaCursor)
                 }
                 if(this.selectedCharaCursor === 1){
-                    //えさやり
-                    //餌画面を表示する
-                    //this.$store.commit('setSelectedCommand', 6)
-
+                    this.$store.commit('setSelectedCommand', 6)
                 }
                 if(this.selectedCharaCursor === 2){
                     //キャラ図鑑を表示する
@@ -57,14 +59,12 @@ export default {
                 if(this.selectedCharaCursor === 3){
                     //おわかれ画面を表示する
                     //this.$store.commit('setSelectedCommand', 8)
-
-
                 }
             }
-            if(e.keyCode === 27 && this.$store.state.isInputMode === true){
-                this.$store.state.isInputMode = false
-                // focusを外す。
-                document.activeElement.blur()
+        // esc
+            if(e.keyCode === 27 && this.$store.state.selectedCommand === 3){
+                this.$store.commit('setSelectedCommand', 0)
+                // this.selectedCharaCursor = 0
             }
         }
     }

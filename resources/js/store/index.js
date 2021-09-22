@@ -8,6 +8,7 @@ const store = new Vuex.Store({
         selectedCursor: 1,
         selectedCommand: 0,
         isInputMode: false,
+        currentScreenId: null,
     },
     mutations: {
         increment(state) {
@@ -22,7 +23,7 @@ const store = new Vuex.Store({
         },
         setSelectedCommand(state, command){
             state.selectedCommand = command
-        }
+        },
     }
 })
 

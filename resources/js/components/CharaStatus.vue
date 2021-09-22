@@ -1,7 +1,7 @@
 <template>
     <div class="message-chara">
 
-        <h3>▼ キャラクター管理</h3>
+        <h3>▼ キャラクターステータス</h3>
 
         <div class="chara-index">
             <div class="chara-index-first">
@@ -19,6 +19,9 @@
 
 <script lang="ts">
     export default {
+        created: function() {
+            addEventListener('keyup', this.selectCommand)
+        },
         data() {
             return{
                 characters: [],
@@ -33,6 +36,13 @@
             .catch(function (error) {
                 console.log(error);
             });
+        },
+        methods: {
+        selectCommand(e) {
+            if(e.keyCode === 27){
+                this.$store.commit('setSelectedCommand', 3)
+            }
         }
+    }
     }
 </script>

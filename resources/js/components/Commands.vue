@@ -17,12 +17,10 @@ export default {
             //下
             if(e.keyCode === 40 && this.$store.state.selectedCommand === 0){
                 this.$store.commit('increment')
-
             }
             // 上
             if(e.keyCode === 38 && this.$store.state.selectedCommand === 0){
                 this.$store.commit('decrement')
-
             }
             // スペース　決定
             if(e.keyCode === 32){
@@ -33,6 +31,7 @@ export default {
                     this.$store.commit('setSelectedCommand', 2)
                 }
                 if(this.$store.state.selectedCursor === 3 && this.$store.state.selectedCommand === 0){
+                    // これを押すとcharaのkeyupが走る
                     this.$store.commit('setSelectedCommand', 3)
                 }
                 if(this.$store.state.selectedCursor === 4 && this.$store.state.selectedCommand === 0){
