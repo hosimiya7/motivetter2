@@ -6,7 +6,7 @@
         <div class="small-goal">
             <div class="small_goal_content" v-bind:class="{active: this.$store.state.selectedSubCursor === 0}">
                 <span>目標:</span>
-                <input type="text" name="" id="goal" v-model="goal" placeholder="プログラミング">
+                <input type="text" name="" id="goal" ref="goal" v-model="goal" placeholder="プログラミング">
             </div>
             <div class="small-goal-number" v-bind:class="{active: this.$store.state.selectedSubCursor === 1}">
                 <span>数値:</span>

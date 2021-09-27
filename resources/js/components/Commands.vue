@@ -32,16 +32,22 @@ export default {
       }
       // スペース　決定
       if (e.keyCode === 32) {
+        this.$store.state.isInputMode = this.isInputMode();
         this.isInputFocus();
-        this.$store.state.isInputMode === this.isInputMode();
-        console.log(this.isInputMode());
-        this.$store.commit("setScreenId", this.getNextScreenId());
+        if (!this.$store.state.isInputMode) {
+          this.$store.commit("setScreenId", this.getNextScreenId());
+        }
       }
       // ESC　戻る
-      if (e.keyCode === 27 && this.$store.state.isInputMode === false) {
-        this.$store.state.selectedSubCursor = 0;
-        document.activeElement.blur();
-        this.$store.commit("setScreenId", this.getPrevScreenId());
+      if (e.keyCode === 27) {
+        if (!this.$store.state.isInputMode) {
+          this.$store.state.selectedSubCursor = 0;
+          this.$store.commit("setScreenId", this.getPrevScreenId());
+        }
+        if (this.$store.state.isInputMode) {
+          document.activeElement.blur();
+          this.$store.state.isInputMode = false;
+        }
       }
     },
     getNextScreenId() {
@@ -133,24 +139,24 @@ export default {
       return false;
     },
     isInputFocus() {
-      if (this.$store.state.isInputMode) {
+      if (this.isInputMode()) {
         if (this.$store.state.screenId === 1) {
           if (this.$store.state.selectedSubCursor === 0) {
-            // document.getElementById("goal").focus();
+            document.getElementById("goal").focus();
             return;
           }
           if (this.$store.state.selectedSubCursor === 1) {
-            // document.getElementById("number").focus();
+            document.getElementById("number").focus();
             return;
           }
           if (this.$store.state.selectedSubCursor === 2) {
-            // document.getElementById("unit").focus();
+            document.getElementById("unit").focus();
             return;
           }
         }
         if (this.$store.state.screenId === 2) {
           if (this.$store.state.selectedSubCursor === 0) {
-            // document.getElementById("achieve").focus();
+            document.getElementById("achieve").focus();
             return;
           }
         }
