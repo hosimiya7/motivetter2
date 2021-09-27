@@ -20,7 +20,7 @@
 <script lang="ts">
     export default {
         created: function() {
-            addEventListener('keyup', this.selectCommand)
+            // addEventListener('keyup', this.selectCommand3)
         },
         data() {
             return{
@@ -38,10 +38,11 @@
             });
         },
         methods: {
-        selectCommand(e) {
-            if(e.keyCode === 27){
-                this.$store.commit('setSelectedCommand', 3)
-            }
+        selectCommand3(e) {
+            // if(e.keyCode === 27){
+            //     this.$store.commit('setScreenId', 3)
+            //     // removeEventListener('keyup',this.selectCommand3)
+            // }
         }
     }
     }

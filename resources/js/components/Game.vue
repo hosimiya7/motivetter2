@@ -5,12 +5,12 @@
 
         <div class="game-index">
             <div class="game-index-first">
-                <span v-bind:class="{active: this.selectedGameCursor === 0}">スロット</span>
-                <span v-bind:class="{active: this.selectedGameCursor === 1}">ブロック崩し</span>
+                <span v-bind:class="{active: this.$store.state.selectedSubCursor === 0}">スロット</span>
+                <span v-bind:class="{active: this.$store.state.selectedSubCursor === 1}">ブロック崩し</span>
             </div>
             <div class="game-index-second">
-                <span v-bind:class="{active: this.selectedGameCursor === 2}">おみくじ</span>
-                <span v-bind:class="{active: this.selectedGameCursor === 3}">えさショップ</span>
+                <span v-bind:class="{active: this.$store.state.selectedSubCursor === 2}">おみくじ</span>
+                <span v-bind:class="{active: this.$store.state.selectedSubCursor === 3}">えさショップ</span>
             </div>
         </div>
 
@@ -29,14 +29,14 @@ export default {
     },
     methods: {
         selectCommand(e) {
-        //下
-            if(e.keyCode === 40 && this.selectedGameCursor < 3){
-                this.selectedGameCursor++
-            }
-        // 上
-            if(e.keyCode === 38 && this.selectedGameCursor > 0){
-                this.selectedGameCursor--
-            }
+        // //下
+        //     if(e.keyCode === 40 && this.selectedGameCursor < 3){
+        //         this.selectedGameCursor++
+        //     }
+        // // 上
+        //     if(e.keyCode === 38 && this.selectedGameCursor > 0){
+        //         this.selectedGameCursor--
+        //     }
         }
     }
 }

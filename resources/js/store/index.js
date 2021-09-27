@@ -5,24 +5,34 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
     state: {
-        selectedCursor: 1,
-        selectedCommand: 0,
+        screenId: 0,
+        selectedMainCursor: 1,
+        selectedSubCursor: 0,
         isInputMode: false,
-        currentScreenId: null,
     },
     mutations: {
-        increment(state) {
-            if(state.selectedCursor < 4){
-                state.selectedCursor++
+        incrementMainCursor(state) {
+            if(state.selectedMainCursor < 4){
+                state.selectedMainCursor++
             }
         },
-        decrement(state) {
-            if(state.selectedCursor > 1){
-                state.selectedCursor--
+        decrementMainCursor(state) {
+            if(state.selectedMainCursor > 1){
+                state.selectedMainCursor--
             }
         },
-        setSelectedCommand(state, command){
-            state.selectedCommand = command
+        incrementSubCursor(state, limit) {
+            if(state.selectedSubCursor < limit){
+                state.selectedSubCursor++
+            }
+        },
+        decrementSubCursor(state) {
+            if(state.selectedSubCursor > 0){
+                state.selectedSubCursor--
+            }
+        },
+        setScreenId(state, command){
+            state.screenId = command
         },
     }
 })

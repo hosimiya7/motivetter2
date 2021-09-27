@@ -1,14 +1,14 @@
 <template>
     <div>
-        <p v-if="this.$store.state.selectedCommand === 0">{{ characters.character_template.line }}</p>
-        <Goal v-if="this.$store.state.selectedCommand === 1"/>
-        <Achieve v-if="this.$store.state.selectedCommand === 2"/>
-        <Chara v-if="this.$store.state.selectedCommand === 3"/>
-        <Game v-if="this.$store.state.selectedCommand === 4"/>
-        <CharaStatus v-if="this.$store.state.selectedCommand === 5"/>
-        <CharaFood v-if="this.$store.state.selectedCommand === 6"/>
-        <!-- <CharaPicture v-if="this.$store.state.selectedCommand === 7"/> -->
-        <!-- <CharaFarewell v-if="this.$store.state.selectedCommand === 8"/> -->
+        <p v-if="this.$store.state.screenId === 0">{{ characters.character_template.line }}</p>
+        <Goal v-if="this.$store.state.screenId === 1"/>
+        <Achieve v-if="this.$store.state.screenId === 2"/>
+        <Chara v-if="this.$store.state.screenId === 3"/>
+        <Game v-if="this.$store.state.screenId === 4"/>
+        <CharaStatus v-if="this.$store.state.screenId === 5"/>
+        <CharaFood v-if="this.$store.state.screenId === 6"/>
+        <!-- <CharaPicture v-if="this.$store.state.screenId === 7"/> -->
+        <!-- <CharaFarewell v-if="this.$store.state.screenId === 8"/> -->
     </div>
 </template>
 
