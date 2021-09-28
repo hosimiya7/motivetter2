@@ -28,32 +28,6 @@ export default {
         }
     },
     methods: {
-        selectCommand(e) {
-        // //下
-        //     if(e.keyCode === 40 && this.selectedAchieveCursor < 1 && this.$store.state.isInputMode === false){
-        //         this.selectedAchieveCursor++
-        //     }
-        // // 上
-        //     if(e.keyCode === 38 && this.selectedAchieveCursor > 0 && this.$store.state.isInputMode === false){
-        //         this.selectedAchieveCursor--
-        //     }
-        // スペース
-            if(e.keyCode === 32){
-
-                if(this.selectedAchieveCursor === 0){
-                    // document.getElementById("achieve").focus();
-                    // this.$store.state.isInputMode = true
-                }
-                if(this.selectedAchieveCursor === 1){
-
-                }
-            }
-        // ESC
-             if(e.keyCode === 27 && this.$store.state.isInputMode === true){
-                // this.$store.state.isInputMode = false
-                // document.activeElement.blur()
-            }
-        }
     }
 }
 </script>

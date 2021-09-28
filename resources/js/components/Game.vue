@@ -20,24 +20,12 @@
 <script>
 export default {
     created: function() {
-        addEventListener('keyup', this.selectCommand)
     },
     data() {
         return {
-            selectedGameCursor: 0,
         }
     },
     methods: {
-        selectCommand(e) {
-        // //下
-        //     if(e.keyCode === 40 && this.selectedGameCursor < 3){
-        //         this.selectedGameCursor++
-        //     }
-        // // 上
-        //     if(e.keyCode === 38 && this.selectedGameCursor > 0){
-        //         this.selectedGameCursor--
-        //     }
-        }
     }
 }
 </script>

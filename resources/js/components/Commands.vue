@@ -16,16 +16,20 @@ export default {
   mounted: function() {
     addEventListener("keyup", this.selectCommand);
   },
+  data() {
+    return {
+    };
+  },
   methods: {
     selectCommand(e) {
       //下
-      if (e.keyCode === 40) {
+      if (e.keyCode === 40 && this.$store.state.isInputMode === false) {
         this.isMovableMainCursor()
           ? this.$store.commit("incrementMainCursor")
           : this.$store.commit("incrementSubCursor", this.getSubCursorLimit());
       }
       // 上
-      if (e.keyCode === 38) {
+      if (e.keyCode === 38 && this.$store.state.isInputMode === false) {
         this.isMovableMainCursor()
           ? this.$store.commit("decrementMainCursor")
           : this.$store.commit("decrementSubCursor");
@@ -35,6 +39,7 @@ export default {
         this.$store.state.isInputMode = this.isInputMode();
         this.isInputFocus();
         if (!this.$store.state.isInputMode) {
+          this.postDate();
           this.$store.commit("setScreenId", this.getNextScreenId());
         }
       }
@@ -139,27 +144,48 @@ export default {
       return false;
     },
     isInputFocus() {
-      if (this.isInputMode()) {
-        if (this.$store.state.screenId === 1) {
-          if (this.$store.state.selectedSubCursor === 0) {
-            document.getElementById("goal").focus();
-            return;
-          }
-          if (this.$store.state.selectedSubCursor === 1) {
-            document.getElementById("number").focus();
-            return;
-          }
-          if (this.$store.state.selectedSubCursor === 2) {
-            document.getElementById("unit").focus();
-            return;
-          }
+      if (!this.isInputMode()) {
+        return;
+      }
+      if (this.$store.state.screenId === 1) {
+        if (this.$store.state.selectedSubCursor === 0) {
+          document.getElementById("goal").focus();
+          return;
         }
-        if (this.$store.state.screenId === 2) {
-          if (this.$store.state.selectedSubCursor === 0) {
-            document.getElementById("achieve").focus();
-            return;
-          }
+        if (this.$store.state.selectedSubCursor === 1) {
+          document.getElementById("number").focus();
+          return;
         }
+        if (this.$store.state.selectedSubCursor === 2) {
+          document.getElementById("unit").focus();
+          return;
+        }
+      }
+      if (this.$store.state.screenId === 2) {
+        if (this.$store.state.selectedSubCursor === 0) {
+          document.getElementById("achieve").focus();
+          return;
+        }
+      }
+    },
+    postDate() {
+      if (
+        this.$store.state.selectedMainCursor &&
+        this.$store.state.selectedSubCursor === 3
+      ) {
+        // 登録・if文で要素が入っていたら送る。それ以外はエラーを出す
+        window.axios
+          .post("api/goal/create", {
+            goal: document.getElementById("goal").value,
+            number: document.getElementById("number").value,
+            unit: document.getElementById("unit").value
+          })
+          .then(function(response) {
+            console.log(response);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
       }
     }
   }
