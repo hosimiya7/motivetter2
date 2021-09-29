@@ -11,6 +11,9 @@
 </template>
 
 <script>
+import KeyHandler from "../KeyHandler"
+import Screen from "../Screen"
+
 export default {
   created: function() {},
   mounted: function() {
@@ -22,29 +25,31 @@ export default {
   },
   methods: {
     selectCommand(e) {
+      const keyHandler = new KeyHandler(e.keyCode)
+
       //下
-      if (e.keyCode === 40 && this.$store.state.isInputMode === false) {
+      if (keyHandler.isKeyDown() && !this.$store.state.isInputMode) {
         this.isMovableMainCursor()
           ? this.$store.commit("incrementMainCursor")
           : this.$store.commit("incrementSubCursor", this.getSubCursorLimit());
       }
       // 上
-      if (e.keyCode === 38 && this.$store.state.isInputMode === false) {
+      if (keyHandler.isKeyUp() && !this.$store.state.isInputMode) {
         this.isMovableMainCursor()
           ? this.$store.commit("decrementMainCursor")
           : this.$store.commit("decrementSubCursor");
       }
       // スペース　決定
-      if (e.keyCode === 32) {
+      if (keyHandler.isKeySpace()) {
         this.$store.state.isInputMode = this.isInputMode();
-        this.isInputFocus();
+        this.setFocus();
         if (!this.$store.state.isInputMode) {
-          this.postDate();
+          this.postData();
           this.$store.commit("setScreenId", this.getNextScreenId());
         }
       }
       // ESC　戻る
-      if (e.keyCode === 27) {
+      if (keyHandler.isKeyEsc()) {
         if (!this.$store.state.isInputMode) {
           this.$store.state.selectedSubCursor = 0;
           this.$store.commit("setScreenId", this.getPrevScreenId());
@@ -56,7 +61,10 @@ export default {
       }
     },
     getNextScreenId() {
-      if (this.$store.state.screenId === 0) {
+
+      const screen = new Screen()
+
+      if (this.$store.state.screenId === screen.FIRST) {
         if (this.$store.state.selectedMainCursor === 1) {
           return 1;
         }
@@ -143,7 +151,10 @@ export default {
       }
       return false;
     },
-    isInputFocus() {
+    isNotInputMode(){
+
+    },
+    setFocus() {
       if (!this.isInputMode()) {
         return;
       }
@@ -168,9 +179,9 @@ export default {
         }
       }
     },
-    postDate() {
+    postData() {
       if (
-        this.$store.state.selectedMainCursor &&
+        this.$store.state.selectedMainCursor === 1 &&
         this.$store.state.selectedSubCursor === 3
       ) {
         // 登録・if文で要素が入っていたら送る。それ以外はエラーを出す
@@ -187,7 +198,11 @@ export default {
             console.log(error);
           });
       }
+      if(this.$store.state.selectedMainCursor === 2 &&
+        this.$store.state.selectedSubCursor === 1){
+          console.log("今後値が入力できるようにする")
+        }
     }
-  }
+  },
 };
 </script>
