@@ -11,8 +11,10 @@
 </template>
 
 <script>
-import KeyHandler from "../KeyHandler"
-import Screen from "../Screen"
+import KeyHandler from "../KeyHandler";
+import Screen from "../Screen";
+import { MainCursor } from "../Cursor";
+import { SubCursor } from "../Cursor";
 
 export default {
   created: function() {},
@@ -20,12 +22,11 @@ export default {
     addEventListener("keyup", this.selectCommand);
   },
   data() {
-    return {
-    };
+    return {};
   },
   methods: {
     selectCommand(e) {
-      const keyHandler = new KeyHandler(e.keyCode)
+      const keyHandler = new KeyHandler(e.keyCode);
 
       //下
       if (keyHandler.isKeyDown() && !this.$store.state.isInputMode) {
@@ -61,28 +62,29 @@ export default {
       }
     },
     getNextScreenId() {
-
-      const screen = new Screen()
+      const screen = new Screen();
+      const mainCursor = new MainCursor();
+      const subCursor = new SubCursor();
 
       if (this.$store.state.screenId === screen.FIRST) {
-        if (this.$store.state.selectedMainCursor === 1) {
+        if (this.$store.state.selectedMainCursor === mainCursor.GOAL) {
           return 1;
         }
-        if (this.$store.state.selectedMainCursor === 2) {
+        if (this.$store.state.selectedMainCursor === mainCursor.ACHIEVE) {
           return 2;
         }
-        if (this.$store.state.selectedMainCursor === 3) {
+        if (this.$store.state.selectedMainCursor === mainCursor.CHARACTER) {
           return 3;
         }
-        if (this.$store.state.selectedMainCursor === 4) {
+        if (this.$store.state.selectedMainCursor === mainCursor.GAME) {
           return 4;
         }
       }
       if (this.$store.state.screenId === screen.CHARACTER) {
-        if (this.$store.state.selectedSubCursor === 0) {
+        if (this.$store.state.selectedSubCursor === subCursor.INDENT1) {
           return 5;
         }
-        if (this.$store.state.selectedSubCursor === 1) {
+        if (this.$store.state.selectedSubCursor === subCursor.INDENT2) {
           return 6;
         }
         // if (this.$store.state.selectedSubCursor === 2) {
@@ -95,7 +97,7 @@ export default {
       return this.$store.state.screenId;
     },
     getPrevScreenId() {
-      const screen = new Screen()
+      const screen = new Screen();
 
       if (this.$store.state.screenId === screen.FIRST) {
         return 0;
@@ -126,69 +128,72 @@ export default {
       // }
     },
     isMovableMainCursor() {
-      const screen = new Screen()
+      const screen = new Screen();
       return this.$store.state.screenId === screen.FIRST;
     },
     getSubCursorLimit() {
-      const screen = new Screen()
-      if (this.$store.state.screenId === screen.GOAL) {
+      const screen = new Screen();
+      if (this.$store.state.screenId === screen.ACHIEVE) {
         return 1;
       }
       return 3;
     },
     isInputMode() {
-      const screen = new Screen()
+      const screen = new Screen();
+      const subCursor = new SubCursor();
+
       if (this.$store.state.screenId === screen.GOAL) {
-        if (this.$store.state.selectedSubCursor === 0) {
+        if (this.$store.state.selectedSubCursor === subCursor.INDENT1) {
           return true;
         }
-        if (this.$store.state.selectedSubCursor === 1) {
+        if (this.$store.state.selectedSubCursor === subCursor.INDENT2) {
           return true;
         }
-        if (this.$store.state.selectedSubCursor === 2) {
+        if (this.$store.state.selectedSubCursor === subCursor.INDENT3) {
           return true;
         }
       }
       if (this.$store.state.screenId === screen.ACHIEVE) {
-        if (this.$store.state.selectedSubCursor === 0) {
+        if (this.$store.state.selectedSubCursor === subCursor.INDENT4) {
           return true;
         }
       }
       return false;
     },
-    isNotInputMode(){
-
-    },
+    isNotInputMode() {},
     setFocus() {
-      const screen = new Screen()
+      const screen = new Screen();
+      const subCursor = new SubCursor();
       if (!this.isInputMode()) {
         return;
       }
       if (this.$store.state.screenId === screen.GOAL) {
-        if (this.$store.state.selectedSubCursor === 0) {
+        if (this.$store.state.selectedSubCursor === subCursor.INDENT1) {
           document.getElementById("goal").focus();
           return;
         }
-        if (this.$store.state.selectedSubCursor === 1) {
+        if (this.$store.state.selectedSubCursor === subCursor.INDENT2) {
           document.getElementById("number").focus();
           return;
         }
-        if (this.$store.state.selectedSubCursor === 2) {
+        if (this.$store.state.selectedSubCursor === subCursor.INDENT3) {
           document.getElementById("unit").focus();
           return;
         }
       }
       if (this.$store.state.screenId === screen.ACHIEVE) {
-        if (this.$store.state.selectedSubCursor === 0) {
+        if (this.$store.state.selectedSubCursor === subCursor.INDENT1) {
           document.getElementById("achieve").focus();
           return;
         }
       }
     },
     postData() {
+      const mainCursor = new MainCursor();
+      const subCursor = new SubCursor();
       if (
-        this.$store.state.selectedMainCursor === 1 &&
-        this.$store.state.selectedSubCursor === 3
+        this.$store.state.selectedMainCursor === mainCursor.GOAL &&
+        this.$store.state.selectedSubCursor === subCursor.INDENT4
       ) {
         // 登録・if文で要素が入っていたら送る。それ以外はエラーを出す
         window.axios
@@ -204,11 +209,29 @@ export default {
             console.log(error);
           });
       }
-      if(this.$store.state.selectedMainCursor === 2 &&
-        this.$store.state.selectedSubCursor === 1){
-          console.log("今後値が入力できるようにする")
-        }
+      if (
+        this.$store.state.selectedMainCursor === mainCursor.ACHIEVE &&
+        this.$store.state.selectedSubCursor === subCursor.INDENT2
+      ) {
+        console.log("今後値が入力できるようにする");
+      }
+    },
+    isMainCursorGoal() {
+      const mainCursor = new MainCursor();
+      this.$store.state.selectedMainCursor === mainCursor.GOAL;
+    },
+    isMainCursorAchieve() {
+      const mainCursor = new MainCursor();
+      this.$store.state.selectedMainCursor === mainCursor.ACHIEVE;
+    },
+    isMainCursorCharacter() {
+      const mainCursor = new MainCursor();
+      this.$store.state.selectedMainCursor === mainCursor.CHARACTER;
+    },
+    isMainCursorGame() {
+      const mainCursor = new MainCursor();
+      this.$store.state.selectedMainCursor === mainCursor.GAME;
     }
-  },
+  }
 };
 </script>
