@@ -78,7 +78,7 @@ export default {
           return 4;
         }
       }
-      if (this.$store.state.screenId === 3) {
+      if (this.$store.state.screenId === screen.CHARACTER) {
         if (this.$store.state.selectedSubCursor === 0) {
           return 5;
         }
@@ -95,25 +95,27 @@ export default {
       return this.$store.state.screenId;
     },
     getPrevScreenId() {
-      if (this.$store.state.screenId === 0) {
+      const screen = new Screen()
+
+      if (this.$store.state.screenId === screen.FIRST) {
         return 0;
       }
-      if (this.$store.state.screenId === 1) {
+      if (this.$store.state.screenId === screen.GOAL) {
         return 0;
       }
-      if (this.$store.state.screenId === 2) {
+      if (this.$store.state.screenId === screen.ACHIEVE) {
         return 0;
       }
-      if (this.$store.state.screenId === 3) {
+      if (this.$store.state.screenId === screen.CHARACTER) {
         return 0;
       }
-      if (this.$store.state.screenId === 4) {
+      if (this.$store.state.screenId === screen.GAME) {
         return 0;
       }
-      if (this.$store.state.screenId === 5) {
+      if (this.$store.state.screenId === screen.CHARACTERSTATUS) {
         return 3;
       }
-      if (this.$store.state.screenId === 6) {
+      if (this.$store.state.screenId === screen.CHARACTERFOOD) {
         return 3;
       }
       // if (this.$store.state.screenId === 7) {
@@ -124,16 +126,19 @@ export default {
       // }
     },
     isMovableMainCursor() {
-      return this.$store.state.screenId === 0;
+      const screen = new Screen()
+      return this.$store.state.screenId === screen.FIRST;
     },
     getSubCursorLimit() {
-      if (this.$store.state.screenId === 2) {
+      const screen = new Screen()
+      if (this.$store.state.screenId === screen.GOAL) {
         return 1;
       }
       return 3;
     },
     isInputMode() {
-      if (this.$store.state.screenId === 1) {
+      const screen = new Screen()
+      if (this.$store.state.screenId === screen.GOAL) {
         if (this.$store.state.selectedSubCursor === 0) {
           return true;
         }
@@ -144,7 +149,7 @@ export default {
           return true;
         }
       }
-      if (this.$store.state.screenId === 2) {
+      if (this.$store.state.screenId === screen.ACHIEVE) {
         if (this.$store.state.selectedSubCursor === 0) {
           return true;
         }
@@ -155,10 +160,11 @@ export default {
 
     },
     setFocus() {
+      const screen = new Screen()
       if (!this.isInputMode()) {
         return;
       }
-      if (this.$store.state.screenId === 1) {
+      if (this.$store.state.screenId === screen.GOAL) {
         if (this.$store.state.selectedSubCursor === 0) {
           document.getElementById("goal").focus();
           return;
@@ -172,7 +178,7 @@ export default {
           return;
         }
       }
-      if (this.$store.state.screenId === 2) {
+      if (this.$store.state.screenId === screen.ACHIEVE) {
         if (this.$store.state.selectedSubCursor === 0) {
           document.getElementById("achieve").focus();
           return;
