@@ -1,12 +1,12 @@
 <template>
   <div class="commands">
-    <div class="command" v-bind:class="{active: this.$store.state.selectedMainCursor === 1}">目標入力・変更</div>
-    <div class="command" v-bind:class="{active: this.$store.state.selectedMainCursor === 2}">達成入力</div>
+    <div class="command" v-bind:class="{ active: this.isGoal }">目標入力・変更</div>
+    <div class="command" v-bind:class="{ active: this.isAchieve }">達成入力</div>
     <div
       class="command"
-      v-bind:class="{active: this.$store.state.selectedMainCursor === 3}"
+      v-bind:class="{ active: this.isCharacter }"
     >キャラクター管理</div>
-    <div class="command" v-bind:class="{active: this.$store.state.selectedMainCursor === 4}">ミニゲーム</div>
+    <div class="command" v-bind:class="{active: this.isGame}">ミニゲーム</div>
   </div>
 </template>
 
@@ -22,23 +22,33 @@ export default {
     addEventListener("keyup", this.selectCommand);
   },
   data() {
-    return {};
+    return {
+      isGoal: true,
+      isAchieve: false,
+      isCharacter: false,
+      isGame: false,
+    };
   },
   methods: {
     selectCommand(e) {
       const keyHandler = new KeyHandler(e.keyCode);
+      const mainCursor = new MainCursor();
+
 
       //下
       if (keyHandler.isKeyDown() && !this.$store.state.isInputMode) {
         this.isMovableMainCursor()
           ? this.$store.commit("incrementMainCursor")
           : this.$store.commit("incrementSubCursor", this.getSubCursorLimit());
+          this.checkMainCursor();
       }
       // 上
       if (keyHandler.isKeyUp() && !this.$store.state.isInputMode) {
         this.isMovableMainCursor()
           ? this.$store.commit("decrementMainCursor")
           : this.$store.commit("decrementSubCursor");
+          this.checkMainCursor();
+
       }
       // スペース　決定
       if (keyHandler.isKeySpace()) {
@@ -67,16 +77,16 @@ export default {
       const subCursor = new SubCursor();
 
       if (this.$store.state.screenId === screen.FIRST) {
-        if (this.$store.state.selectedMainCursor === mainCursor.GOAL) {
+        if (this.isGoal) {
           return 1;
         }
-        if (this.$store.state.selectedMainCursor === mainCursor.ACHIEVE) {
+        if (this.isAchieve) {
           return 2;
         }
-        if (this.$store.state.selectedMainCursor === mainCursor.CHARACTER) {
+        if (this.isCharacter) {
           return 3;
         }
-        if (this.$store.state.selectedMainCursor === mainCursor.GAME) {
+        if (this.isGame) {
           return 4;
         }
       }
@@ -216,22 +226,13 @@ export default {
         console.log("今後値が入力できるようにする");
       }
     },
-    isMainCursorGoal() {
+    checkMainCursor() {
       const mainCursor = new MainCursor();
-      this.$store.state.selectedMainCursor === mainCursor.GOAL;
+      this.$store.state.selectedMainCursor === mainCursor.GOAL ? this.isGoal = true : this.isGoal = false
+      this.$store.state.selectedMainCursor === mainCursor.ACHIEVE ? this.isAchieve = true : this.isAchieve = false
+      this.$store.state.selectedMainCursor === mainCursor.CHARACTER ? this.isCharacter = true : this.isCharacter = false
+      this.$store.state.selectedMainCursor === mainCursor.GAME ? this.isGame = true : this.isGame = false
     },
-    isMainCursorAchieve() {
-      const mainCursor = new MainCursor();
-      this.$store.state.selectedMainCursor === mainCursor.ACHIEVE;
-    },
-    isMainCursorCharacter() {
-      const mainCursor = new MainCursor();
-      this.$store.state.selectedMainCursor === mainCursor.CHARACTER;
-    },
-    isMainCursorGame() {
-      const mainCursor = new MainCursor();
-      this.$store.state.selectedMainCursor === mainCursor.GAME;
-    }
   }
 };
 </script>
