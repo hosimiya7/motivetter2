@@ -21,13 +21,12 @@ export default {
     addEventListener("keyup", this.selectCommand);
   },
   data() {
-    return {
-    };
+    return {};
   },
   methods: {
     selectCommand(e) {
       const keyHandler = new KeyHandler(e.keyCode);
-
+      const subCursor = new SubCursor();
 
       //下
       if (keyHandler.isKeyDown() && !this.$store.state.isInputMode) {
@@ -48,13 +47,14 @@ export default {
         if (!this.$store.state.isInputMode) {
           this.postData();
           this.$store.commit("setScreenId", this.getNextScreenId());
+          this.$store.state.selectedSubCursor = subCursor.INDENT1;
         }
       }
       // ESC　戻る
       if (keyHandler.isKeyEsc()) {
         if (!this.$store.state.isInputMode) {
-          this.$store.state.selectedSubCursor = 0;
           this.$store.commit("setScreenId", this.getPrevScreenId());
+          this.$store.state.selectedSubCursor = subCursor.INDENT1;
         }
         if (this.$store.state.isInputMode) {
           document.activeElement.blur();
@@ -87,12 +87,12 @@ export default {
         if (this.$store.state.selectedSubCursor === subCursor.INDENT2) {
           return screen.CHARACTER_FOOD;
         }
-        // if (this.$store.state.selectedSubCursor === 2) {
-        //   return 7;
-        // }
-        // if (this.$store.state.selectedSubCursor === 3) {
-        //   return 8;
-        // }
+        if (this.$store.state.selectedSubCursor === subCursor.INDENT3) {
+          return screen.CHARACTER_PICTURES;
+        }
+        if (this.$store.state.selectedSubCursor === subCursor.INDENT4) {
+          return screen.CHARACTER_FAREWELL;
+        }
       }
       return this.$store.state.screenId;
     },
@@ -120,12 +120,12 @@ export default {
       if (this.$store.state.screenId === screen.CHARACTER_FOOD) {
         return screen.CHARACTER;
       }
-      // if (this.$store.state.screenId === 7) {
-      //   return 3;
-      // }
-      // if (this.$store.state.screenId === 8) {
-      //   return 3;
-      // }
+      if (this.$store.state.screenId === screen.CHARACTER_PICTURES) {
+        return screen.CHARACTER;
+      }
+      if (this.$store.state.screenId === screen.CHARACTER_FAREWELL) {
+        return screen.CHARACTER;
+      }
     },
     isMovableMainCursor() {
       const screen = new Screen();
@@ -134,6 +134,9 @@ export default {
     getSubCursorLimit() {
       const screen = new Screen();
       if (this.$store.state.screenId === screen.ACHIEVE) {
+        return 1;
+      }
+      if (this.$store.state.screenId === screen.CHARACTER_FAREWELL) {
         return 1;
       }
       return 3;
@@ -160,7 +163,6 @@ export default {
       }
       return false;
     },
-    isNotInputMode() {},
     setFocus() {
       const screen = new Screen();
       const subCursor = new SubCursor();
@@ -189,7 +191,6 @@ export default {
       }
     },
     postData() {
-
       const subCursor = new SubCursor();
       if (
         this.$store.state.selectedMainCursor === this.mainCursor.GOAL &&
