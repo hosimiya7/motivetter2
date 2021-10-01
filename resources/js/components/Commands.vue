@@ -1,12 +1,9 @@
 <template>
   <div class="commands">
-    <div class="command" v-bind:class="{ active: this.isGoal }">目標入力・変更</div>
-    <div class="command" v-bind:class="{ active: this.isAchieve }">達成入力</div>
-    <div
-      class="command"
-      v-bind:class="{ active: this.isCharacter }"
-    >キャラクター管理</div>
-    <div class="command" v-bind:class="{active: this.isGame}">ミニゲーム</div>
+    <div class="command" v-bind:class="{ active: getIsGoal() }">目標入力・変更</div>
+    <div class="command" v-bind:class="{ active: getIsAchieve() }">達成入力</div>
+    <div class="command" v-bind:class="{ active: getIsCharacter() }">キャラクター管理</div>
+    <div class="command" v-bind:class="{ active: getIsGame() }">ミニゲーム</div>
   </div>
 </template>
 
@@ -17,22 +14,19 @@ import { MainCursor } from "../Cursor";
 import { SubCursor } from "../Cursor";
 
 export default {
-  created: function() {},
+  created: function() {
+    this.mainCursor = new MainCursor();
+  },
   mounted: function() {
     addEventListener("keyup", this.selectCommand);
   },
   data() {
     return {
-      isGoal: true,
-      isAchieve: false,
-      isCharacter: false,
-      isGame: false,
     };
   },
   methods: {
     selectCommand(e) {
       const keyHandler = new KeyHandler(e.keyCode);
-      const mainCursor = new MainCursor();
 
 
       //下
@@ -40,15 +34,12 @@ export default {
         this.isMovableMainCursor()
           ? this.$store.commit("incrementMainCursor")
           : this.$store.commit("incrementSubCursor", this.getSubCursorLimit());
-          this.checkMainCursor();
       }
       // 上
       if (keyHandler.isKeyUp() && !this.$store.state.isInputMode) {
         this.isMovableMainCursor()
           ? this.$store.commit("decrementMainCursor")
           : this.$store.commit("decrementSubCursor");
-          this.checkMainCursor();
-
       }
       // スペース　決定
       if (keyHandler.isKeySpace()) {
@@ -73,29 +64,28 @@ export default {
     },
     getNextScreenId() {
       const screen = new Screen();
-      const mainCursor = new MainCursor();
       const subCursor = new SubCursor();
 
       if (this.$store.state.screenId === screen.FIRST) {
-        if (this.isGoal) {
-          return 1;
+        if (this.getIsGoal()) {
+          return screen.GOAL;
         }
-        if (this.isAchieve) {
-          return 2;
+        if (this.getIsAchieve()) {
+          return screen.ACHIEVE;
         }
-        if (this.isCharacter) {
-          return 3;
+        if (this.getIsCharacter()) {
+          return screen.CHARACTER;
         }
-        if (this.isGame) {
-          return 4;
+        if (this.getIsGame()) {
+          return screen.GAME;
         }
       }
       if (this.$store.state.screenId === screen.CHARACTER) {
         if (this.$store.state.selectedSubCursor === subCursor.INDENT1) {
-          return 5;
+          return screen.CHARACTER_STATUS;
         }
         if (this.$store.state.selectedSubCursor === subCursor.INDENT2) {
-          return 6;
+          return screen.CHARACTER_FOOD;
         }
         // if (this.$store.state.selectedSubCursor === 2) {
         //   return 7;
@@ -110,25 +100,25 @@ export default {
       const screen = new Screen();
 
       if (this.$store.state.screenId === screen.FIRST) {
-        return 0;
+        return screen.FIRST;
       }
       if (this.$store.state.screenId === screen.GOAL) {
-        return 0;
+        return screen.FIRST;
       }
       if (this.$store.state.screenId === screen.ACHIEVE) {
-        return 0;
+        return screen.FIRST;
       }
       if (this.$store.state.screenId === screen.CHARACTER) {
-        return 0;
+        return screen.FIRST;
       }
       if (this.$store.state.screenId === screen.GAME) {
-        return 0;
+        return screen.FIRST;
       }
-      if (this.$store.state.screenId === screen.CHARACTERSTATUS) {
-        return 3;
+      if (this.$store.state.screenId === screen.CHARACTER_STATUS) {
+        return screen.CHARACTER;
       }
-      if (this.$store.state.screenId === screen.CHARACTERFOOD) {
-        return 3;
+      if (this.$store.state.screenId === screen.CHARACTER_FOOD) {
+        return screen.CHARACTER;
       }
       // if (this.$store.state.screenId === 7) {
       //   return 3;
@@ -164,7 +154,7 @@ export default {
         }
       }
       if (this.$store.state.screenId === screen.ACHIEVE) {
-        if (this.$store.state.selectedSubCursor === subCursor.INDENT4) {
+        if (this.$store.state.selectedSubCursor === subCursor.INDENT1) {
           return true;
         }
       }
@@ -199,10 +189,10 @@ export default {
       }
     },
     postData() {
-      const mainCursor = new MainCursor();
+
       const subCursor = new SubCursor();
       if (
-        this.$store.state.selectedMainCursor === mainCursor.GOAL &&
+        this.$store.state.selectedMainCursor === this.mainCursor.GOAL &&
         this.$store.state.selectedSubCursor === subCursor.INDENT4
       ) {
         // 登録・if文で要素が入っていたら送る。それ以外はエラーを出す
@@ -220,19 +210,24 @@ export default {
           });
       }
       if (
-        this.$store.state.selectedMainCursor === mainCursor.ACHIEVE &&
+        this.$store.state.selectedMainCursor === this.mainCursor.ACHIEVE &&
         this.$store.state.selectedSubCursor === subCursor.INDENT2
       ) {
         console.log("今後値が入力できるようにする");
       }
     },
-    checkMainCursor() {
-      const mainCursor = new MainCursor();
-      this.$store.state.selectedMainCursor === mainCursor.GOAL ? this.isGoal = true : this.isGoal = false
-      this.$store.state.selectedMainCursor === mainCursor.ACHIEVE ? this.isAchieve = true : this.isAchieve = false
-      this.$store.state.selectedMainCursor === mainCursor.CHARACTER ? this.isCharacter = true : this.isCharacter = false
-      this.$store.state.selectedMainCursor === mainCursor.GAME ? this.isGame = true : this.isGame = false
+    getIsGoal() {
+      return this.$store.state.selectedMainCursor === this.mainCursor.GOAL;
     },
+    getIsAchieve() {
+      return this.$store.state.selectedMainCursor === this.mainCursor.ACHIEVE;
+    },
+    getIsCharacter() {
+      return this.$store.state.selectedMainCursor === this.mainCursor.CHARACTER;
+    },
+    getIsGame() {
+      return this.$store.state.selectedMainCursor === this.mainCursor.GAME;
+    }
   }
 };
 </script>
