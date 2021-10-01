@@ -31,15 +31,4 @@ class GoalController extends Controller
 
     }
 
-    public function updateAchieve(Request $request)
-    {
-        $user_id = Auth::id();
-        // 実行をしないと動かない。
-        $goal = \App\Models\Goal::where('user_id', $user_id)->orderBy('created_at', 'desc')->first();
-        $goal->achieve = $request->achieve;
-        $goal->save();
-
-
-    }
-
 }

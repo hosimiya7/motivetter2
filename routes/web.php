@@ -23,4 +23,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('api/goal/create', 'GoalController@create')->name('goal.create');
     Route::get('api/goal/show', 'GoalController@show')->name('goal.show');
     Route::get('api/character/show', 'CharacterController@show')->name('character.show');
+    Route::post('api/character/updateExp', 'CharacterController@updateExp')->name('character.updateExp');
+    Route::post('api/character/create', 'CharacterController@create')->name('character.create');
 });

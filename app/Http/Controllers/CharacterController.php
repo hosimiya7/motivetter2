@@ -19,4 +19,23 @@ class CharacterController extends Controller
 
         return $character;
     }
+
+    public function create(Request $request)
+    {
+        $character = new \App\Models\Character;
+        $character->user_id = Auth::id();
+        $character->save();
+
+        return $character;
+
+    }
+
+    public function updateExp(Request $request)
+    {
+        $user_id = Auth::id();
+        // 実行をしないと動かない。
+        $character = \App\Models\Character::where('user_id', $user_id)->orderBy('created_at', 'desc')->first();
+        $character->exp = $request->exp;
+        $character->save();
+    }
 }
