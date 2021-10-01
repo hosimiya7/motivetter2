@@ -34,8 +34,8 @@ Vue.component('Goal', require('./components/Goal.vue').default);
 Vue.component('Game', require('./components/Game.vue').default);
 Vue.component('CharaStatus', require('./components/CharaStatus.vue').default);
 Vue.component('CharaFood', require('./components/CharaFood.vue').default);
-// Vue.component('CharaPicture', require('./components/CharaPicture.vue').default);
-// Vue.component('CharaFarewell', require('./components/CharaFarewell.vue').default);
+Vue.component('CharaPictures', require('./components/CharaPictures.vue').default);
+Vue.component('CharaFarewell', require('./components/CharaFarewell.vue').default);
 
 Vue.use(Vuex);
 

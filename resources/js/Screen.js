@@ -8,5 +8,7 @@ export default class Screen{
     GAME = 4
     CHARACTER_STATUS = 5
     CHARACTER_FOOD = 6
+    CHARACTER_PICTURES = 7
+    CHARACTER_FAREWELL = 8
 
 }

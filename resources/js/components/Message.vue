@@ -7,8 +7,8 @@
         <Game v-if="this.$store.state.screenId === 4"/>
         <CharaStatus v-if="this.$store.state.screenId === 5"/>
         <CharaFood v-if="this.$store.state.screenId === 6"/>
-        <!-- <CharaPicture v-if="this.$store.state.screenId === 7"/> -->
-        <!-- <CharaFarewell v-if="this.$store.state.screenId === 8"/> -->
+        <CharaPictures v-if="this.$store.state.screenId === 7"/>
+        <CharaFarewell v-if="this.$store.state.screenId === 8"/>
     </div>
 </template>
 
