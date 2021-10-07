@@ -13,4 +13,5 @@ class Character extends Model
     public function characterTemplate() {
         return $this->belongsTo(CharacterTemplate::class);
     }
+
 }

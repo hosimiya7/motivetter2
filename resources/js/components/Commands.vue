@@ -52,7 +52,7 @@ export default {
         if (!this.$store.state.isInputMode) {
           this.postData();
           this.getExp();
-          this.farewellCharacter()
+          this.farewellCharacter();
           this.$store.commit("setScreenId", this.getNextScreenId());
           this.$store.state.selectedSubCursor = this.subCursor.INDENT1;
         }
@@ -211,40 +211,11 @@ export default {
         this.$store.state.selectedSubCursor === this.subCursor.INDENT2
       ) {
         window.axios
-          .get("/api/goal/show")
-          .then(response => {
-            this.goals = response["data"];
-            this.gotExp = Math.floor(
-              (document.getElementById("achieve").value / this.goals.number) *
-                100
-            );
-            if (this.gotExp >= 100) {
-              this.gotExp = 100;
-            }
+          .post("api/character/updateExp", {
+            achieve: document.getElementById("achieve").value
           })
-          .catch(function(error) {
-            console.log(error);
-          });
-
-        window.axios
-          .get("/api/character/show")
-          .then(response => {
-            this.characters = response["data"];
-            this.currentExp = this.characters.exp;
-            this.newExp = this.gotExp + this.currentExp;
-            console.log(this.newExp);
-
-            window.axios
-              .post("api/character/updateExp", {
-                exp: this.newExp
-              })
-              .then(function(response) {
-                console.log(this.newExp);
-                console.log(response);
-              })
-              .catch(function(error) {
-                console.log(error);
-              });
+          .then(function(response) {
+            console.log(response);
           })
           .catch(function(error) {
             console.log(error);
@@ -257,7 +228,7 @@ export default {
         this.$store.state.selectedSubCursor === this.subCursor.INDENT1
       ) {
         window.axios
-          .post("api/character/create")
+          .post("api/character/delete")
           .then(function(response) {
             console.log(response);
           })

@@ -58,6 +58,7 @@
             window.axios.get('/api/character/show')
             .then(response =>{
                 this.characters = response['data'];
+                console.log(this.characters)
             })
             .catch(function (error) {
                 console.log(error);

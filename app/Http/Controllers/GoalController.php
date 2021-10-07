@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use SebastianBergmann\Environment\Console;
 
 class GoalController extends Controller
 {
-    //
-    public function create(Request $request)
+
+     public function create(Request $request)
     {
-        $goal = new \App\Models\Goal;
-        $goal->goal = $request->goal;
-        $goal->number = $request->number;
-        $goal->unit = $request->unit;
-        $goal->user_id = Auth::id();
-        $goal->save();
+        $user = Auth::user();
+        $user->goal->goal = $request->goal;
+        $user->goal->number = $request->number;
+        $user->goal->unit = $request->unit;
+        $user->goal->user_id = Auth::id();
+        $goal = $user->goal->save();
 
         return $goal;
     }
@@ -24,8 +25,8 @@ class GoalController extends Controller
     public function show(Request $request)
     {
 
-        $user_id = Auth::id();
-        $goal = \App\Models\Goal::where('user_id', $user_id)->orderBy('created_at', 'desc')->first();
+        $user = Auth::User();
+        $goal = $user->goal->first();
 
         return $goal;
 
