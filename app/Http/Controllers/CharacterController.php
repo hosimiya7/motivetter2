@@ -13,7 +13,9 @@ class CharacterController extends Controller
 {
     public function show(Request $request)
     {
-
+        /**
+         * @var User $user
+         */
         $user = Auth::User();
         $character = $user->character()->with('characterTemplate')->first();
 
@@ -24,17 +26,7 @@ class CharacterController extends Controller
 
     public function delete(Request $request)
     {
-        /**
-         * @var User $user
-         */
-        $user = Auth::user();
-        // userModelに紐づいたcharacterを削除
-        $user->character->delete();
-        $user_id = Auth::id();
-        $character = $user->character->create(['user_id' => $user_id]);
-
-        return $character;
-
+        return Character::getRenewCharacter(Auth::User());
     }
 
     public function updateExp(Request $request)
@@ -46,6 +38,9 @@ class CharacterController extends Controller
         $achieve = $request->achieve;
 
         $gotExp = ($achieve / $goal_number) * 100;
+        if($gotExp > 100) {
+            $gotExp = 100;
+        }
 
         // 実行をしないと動かない。
         $character = $user->character->first();
