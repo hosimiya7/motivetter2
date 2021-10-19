@@ -38,7 +38,7 @@ class CharacterController extends Controller
         $achieve = $request->achieve;
 
         $gotExp = ($achieve / $goal_number) * 100;
-        if($gotExp > 100) {
+        if ($gotExp > 100) {
             $gotExp = 100;
         }
 
@@ -46,6 +46,16 @@ class CharacterController extends Controller
         $character = $user->character->first();
         $currentExp = $character->exp;
         $character->exp = ($currentExp + $gotExp);
+
+        if ($currentExp + $gotExp > 500) {
+            $character->character_template_id = 2;
+            $character->growth = 1;
+        }
+        if($currentExp + $gotExp > 1200){
+            $character->character_template_id = 3;
+            $character->growth = 2;
+        }
+
         $character->save();
 
         return $character;
