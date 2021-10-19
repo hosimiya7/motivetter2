@@ -13,13 +13,10 @@ class GoalController extends Controller
      public function create(Request $request)
     {
         $user = Auth::user();
-        $user->goal->goal = $request->goal;
-        $user->goal->number = $request->number;
-        $user->goal->unit = $request->unit;
-        $user->goal->user_id = Auth::id();
-        $goal = $user->goal->save();
+        $user->goal->fill($request->all())->save();
 
-        return $goal;
+        return $user->goal;
+
     }
 
     public function show(Request $request)

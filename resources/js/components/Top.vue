@@ -7,15 +7,15 @@
                     <Commands></Commands>
                 </div>
                 <div class="goal">
-                    <span>{{ goals.number }}</span><span>{{ goals.unit }}</span><span>{{ goals.goal }}</span>
+                    <span v-text="this.$store.state.goals.number"></span><span v-text="this.$store.state.goals.unit"></span><span v-text="this.$store.state.goals.goal"></span>
                 </div>
                 <div class="status">
                     <ul>
                         <li>
-                            名前：{{ characters.character_template.name }}
+                            名前：{{ this.$store.state.characters.character_template.name }}
                         </li>
                         <li>
-                            現在の経験値：{{ characters.exp }}
+                            現在の経験値：{{ this.$store.state.characters.exp }}
                         </li>
                     </ul>
                 </div>
@@ -41,15 +41,13 @@
         },
         data() {
             return{
-                goals: [], //データ格納
                 characters: [],
             }
         },
         mounted() {
-            // ページ遷移挟まないと表示されない
             window.axios.get('/api/goal/show')
             .then(response =>{
-                this.goals = response['data'];
+                this.$store.state.goals = response['data'];
             })
             .catch(function (error) {
                 console.log(error);
@@ -57,12 +55,11 @@
 
             window.axios.get('/api/character/show')
             .then(response =>{
-                this.characters = response['data'];
-                console.log(this.characters)
+                this.$store.state.characters = response['data'];
             })
             .catch(function (error) {
                 console.log(error);
             });
-        }
+        },
     }
 </script>

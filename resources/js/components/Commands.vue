@@ -203,6 +203,14 @@ export default {
           .catch(function(error) {
             console.log(error);
           });
+        window.axios
+          .get("/api/goal/show")
+          .then(response => {
+            this.$store.state.goals = response["data"];
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
       }
     },
     getExp() {
@@ -220,6 +228,14 @@ export default {
           .catch(function(error) {
             console.log(error);
           });
+        window.axios
+          .get("/api/character/show")
+          .then(response => {
+            this.$store.state.characters = response["data"];
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
       }
     },
     farewellCharacter() {
@@ -231,6 +247,14 @@ export default {
           .post("api/character/delete")
           .then(function(response) {
             console.log(response);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+        window.axios
+          .get("/api/character/show")
+          .then(response => {
+            this.$store.state.characters = response["data"];
           })
           .catch(function(error) {
             console.log(error);
