@@ -98,6 +98,9 @@ export default {
           return this.screen.CHARACTER_FAREWELL;
         }
       }
+      if (this.$store.state.screenId === this.screen.CHARACTER_FAREWELL) {
+          return this.screen.FIRST;
+      }
       return this.$store.state.screenId;
     },
     getPrevScreenId() {

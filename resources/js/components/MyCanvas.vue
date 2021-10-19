@@ -64,9 +64,9 @@ export default {
 
             // 画像のURLを指定
             if(this.is_left){
-                chara.src = "/imgs/moti_1_left.png"
+                chara.src = "/imgs/moti_" + this.$store.state.characters.character_template.id + "_left.png"
             }else{
-                chara.src = "/imgs/moti_1_right.png"
+                chara.src = "/imgs/moti_" + this.$store.state.characters.character_template.id + "_right.png"
             }
 
             chara.onload = () => {
