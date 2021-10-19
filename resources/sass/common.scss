@@ -3,8 +3,8 @@
     padding: 0;
     border: 0;
     box-sizing: border-box;
-    text-align:center;
-    font-family: 'DotGothic16', sans-serif;
+    text-align: center;
+    font-family: "DotGothic16", sans-serif;
 }
 
 li {
@@ -22,7 +22,6 @@ a {
 h1 {
     margin-top: 1em;
 }
-
 
 .main-wrapper {
     background-color: $main_color;
@@ -65,22 +64,22 @@ h1 {
     }
 }
 
-.commands{
+.commands {
     width: 120px;
     height: 100px;
     margin: 0;
-    .command{
+    .command {
         border: none;
         margin: 0;
         padding: 0.5em 0 0 1em;
         font-size: 0.8em;
-        &:first-child{
+        &:first-child {
             padding-top: 0.2em;
         }
     }
-    .active{
+    .active {
         position: relative;
-        &::before{
+        &::before {
             display: block;
             content: "▲";
             transform: rotate(90deg);
@@ -90,36 +89,36 @@ h1 {
     }
 }
 
-.message{
-    p{
+.message {
+    p {
         padding-top: 0.5em;
     }
 }
 
-.message-goal{
+.message-goal {
     border: none;
     font-size: 0.8em;
-    h3{
+    h3 {
         font-size: 1em;
         font-weight: normal;
         text-align: left;
         margin: 0.5em 0 0 2em;
     }
-    h4{
+    h4 {
         display: inline;
         font-weight: inherit;
         text-align: left;
         margin: 0 auto;
     }
-    input{
+    input {
         outline: none;
         text-align: left;
     }
 
-    .small-goal{
-        .active{
+    .small-goal {
+        .active {
             position: relative;
-            &::before{
+            &::before {
                 display: block;
                 content: "▲";
                 transform: rotate(90deg);
@@ -128,33 +127,33 @@ h1 {
                 top: 0.2em;
             }
         }
-        input{
+        input {
             margin: 0.2em 0;
         }
         margin-top: -12px;
     }
 }
 
-.message-achieve{
+.message-achieve {
     border: none;
     font-size: 0.8em;
-    h3{
+    h3 {
         font-size: 1em;
         font-weight: normal;
         text-align: left;
         margin: 0.5em 0 0 2em;
     }
-    input{
+    input {
         width: 50px;
         text-align: left;
         outline: none;
     }
-    .achieve{
+    .achieve {
         margin: 0.3em 0;
     }
-    .active{
+    .active {
         position: relative;
-        &::before{
+        &::before {
             display: block;
             content: "▲";
             transform: rotate(90deg);
@@ -165,22 +164,22 @@ h1 {
     }
 }
 
-.message-chara{
+.message-chara {
     border: none;
     font-size: 0.8em;
     text-align: left;
     display: inline;
-    h3{
+    h3 {
         font-size: 1em;
         font-weight: normal;
         text-align: left;
         margin: 0.5em 0 0 2em;
     }
-    .chara-index{
+    .chara-index {
         margin: 1em 6em 0 0;
-        .active{
+        .active {
             position: relative;
-            &::before{
+            &::before {
                 display: block;
                 content: "▲";
                 transform: rotate(90deg);
@@ -189,33 +188,50 @@ h1 {
                 top: 0;
             }
         }
-        .chara-index-first, .chara-index-second{
+        .chara-index-first,
+        .chara-index-second {
             margin-top: 0.5em;
-            span{
-                &:first-child{
+            span {
+                &:first-child {
                     margin-right: 19em;
                 }
             }
         }
+        .chara-food {
+            input {
+                width: 40px;
+                outline: none;
+                text-align: left;
+            }
+        }
+        h4 {
+            display: inline;
+            font-weight: inherit;
+            text-align: left;
+            margin: 0 auto;
+        }
+        .register {
+            display: inline-block;
+        }
     }
 }
 
-.message-game{
+.message-game {
     border: none;
     font-size: 0.8em;
     text-align: left;
     display: inline;
-    h3{
+    h3 {
         font-size: 1em;
         font-weight: normal;
         text-align: left;
         margin: 0.5em 0 0 2em;
     }
-    .game-index{
+    .game-index {
         margin: 1em 6em 0 0;
-        .active{
+        .active {
             position: relative;
-            &::before{
+            &::before {
                 display: block;
                 content: "▲";
                 transform: rotate(90deg);
@@ -224,10 +240,11 @@ h1 {
                 top: 0;
             }
         }
-        .game-index-first, .game-index-second{
+        .game-index-first,
+        .game-index-second {
             margin-top: 0.5em;
-            span{
-                &:first-child{
+            span {
+                &:first-child {
                     margin-right: 19em;
                 }
             }

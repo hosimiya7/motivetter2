@@ -99,7 +99,7 @@ export default {
         }
       }
       if (this.$store.state.screenId === this.screen.CHARACTER_FAREWELL) {
-          return this.screen.FIRST;
+        return this.screen.FIRST;
       }
       return this.$store.state.screenId;
     },
@@ -139,6 +139,9 @@ export default {
       if (this.$store.state.screenId === this.screen.ACHIEVE) {
         return 1;
       }
+      if (this.$store.state.screenId === this.screen.CHARACTER_FOOD) {
+        return 5;
+      }
       if (this.$store.state.screenId === this.screen.CHARACTER_FAREWELL) {
         return 1;
       }
@@ -158,6 +161,20 @@ export default {
       }
       if (this.$store.state.screenId === this.screen.ACHIEVE) {
         if (this.$store.state.selectedSubCursor === this.subCursor.INDENT1) {
+          return true;
+        }
+      }
+      if (this.$store.state.screenId === this.screen.CHARACTER_FOOD) {
+        if (this.$store.state.selectedSubCursor === this.subCursor.INDENT1) {
+          return true;
+        }
+        if (this.$store.state.selectedSubCursor === this.subCursor.INDENT2) {
+          return true;
+        }
+        if (this.$store.state.selectedSubCursor === this.subCursor.INDENT3) {
+          return true;
+        }
+        if (this.$store.state.selectedSubCursor === this.subCursor.INDENT4) {
           return true;
         }
       }
@@ -184,6 +201,24 @@ export default {
       if (this.$store.state.screenId === this.screen.ACHIEVE) {
         if (this.$store.state.selectedSubCursor === this.subCursor.INDENT1) {
           document.getElementById("achieve").focus();
+          return;
+        }
+      }
+       if (this.$store.state.screenId === this.screen.CHARACTER_FOOD) {
+        if (this.$store.state.selectedSubCursor === this.subCursor.INDENT1) {
+          document.getElementById("strawberry").focus();
+          return;
+        }
+        if (this.$store.state.selectedSubCursor === this.subCursor.INDENT2) {
+          document.getElementById("mochi").focus();
+          return;
+        }
+        if (this.$store.state.selectedSubCursor === this.subCursor.INDENT3) {
+          document.getElementById("melon").focus();
+          return;
+        }
+        if (this.$store.state.selectedSubCursor === this.subCursor.INDENT4) {
+          document.getElementById("grass").focus();
           return;
         }
       }

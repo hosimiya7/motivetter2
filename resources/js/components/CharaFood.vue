@@ -1,34 +1,41 @@
 <template>
-    <div class="message-chara">
+  <div class="message-chara">
+    <h3>▼ えさやり</h3>
 
-        <h3>▼ えさやり</h3>
-
-        <div class="chara-index">
-            <div class="chara-index-first">
-                <span v-bind:class="{active: this.$store.state.selectedSubCursor === 0}">いちご</span>
-                <span v-bind:class="{active: this.$store.state.selectedSubCursor === 1}">もち</span>
-            </div>
-            <div class="chara-index-second">
-                <span v-bind:class="{active: this.$store.state.selectedSubCursor === 2}">メロン</span>
-                <span v-bind:class="{active: this.$store.state.selectedSubCursor === 3}">にく</span>
-            </div>
-        </div>
-
+    <div class="chara-index">
+      <div class="chara-index-first chara-food">
+        <span v-bind:class="{active: this.$store.state.selectedSubCursor === 0}">
+          いちご
+          <input type="text" name="strawberry" id="strawberry" placeholder="数値" />
+        </span>
+        <span v-bind:class="{active: this.$store.state.selectedSubCursor === 1}">
+          おもち
+          <input type="text" name="mochi" id="mochi" placeholder="数値" />
+        </span>
+      </div>
+      <div class="chara-index-second chara-food">
+        <span v-bind:class="{active: this.$store.state.selectedSubCursor === 2}">
+          メロン
+          <input type="text" name="melon" id="melon" placeholder="数値" />
+        </span>
+        <span v-bind:class="{active: this.$store.state.selectedSubCursor === 3}">
+          葉っぱ
+          <input type="text" name="grass" id="grass" placeholder="数値" />
+        </span>
+      </div>
+      <div class="register" v-bind:class="{active: this.$store.state.selectedSubCursor === 4}">
+        <h4>登録</h4>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
 export default {
-    created: function() {
-
-    },
-    data() {
-        return {
-
-        }
-    },
-    methods: {
-
-    }
-}
+  created: function() {},
+  data() {
+    return {};
+  },
+  methods: {}
+};
 </script>
