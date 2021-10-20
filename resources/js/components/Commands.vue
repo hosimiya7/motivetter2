@@ -19,7 +19,7 @@ export default {
     this.mainCursor = new MainCursor();
     this.subCursor = new SubCursor();
     this.screen = new Screen();
-    this.omikuji = new omikuji();
+    this.omikuji = new Omikuji();
   },
   mounted: function() {
     addEventListener("keyup", this.selectCommand);
@@ -55,6 +55,7 @@ export default {
           this.postData();
           this.getExp();
           this.farewellCharacter();
+          this.playOmikuji()
           this.$store.commit("setScreenId", this.getNextScreenId());
           this.$store.state.selectedSubCursor = this.subCursor.INDENT1;
         }
@@ -328,12 +329,18 @@ export default {
           });
       }
     },
-    gameOmikuji() {
+    playOmikuji() {
        if (
         this.$store.state.screenId === this.screen.GAMEOMIKUJI &&
         this.$store.state.selectedSubCursor === this.subCursor.INDENT1
       ) {
-
+        this.omikuji.startOmikuji()
+      }
+      if (
+        this.$store.state.screenId === this.screen.GAMEOMIKUJI &&
+        this.$store.state.selectedSubCursor === this.subCursor.INDENT2
+      ) {
+        this.omikuji.stopOmikuji()
       }
     },
     getIsGoal() {

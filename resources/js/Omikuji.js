@@ -23,7 +23,6 @@ export default class Omikuji {
     // おみくじを順で表示する
     start = () => {
         this.interval = setInterval(this.runOmikuji, 100)
-        console.log(this.interval)
     }
 
     setText = (value) => {
@@ -32,8 +31,6 @@ export default class Omikuji {
 
     //　おみくじを配列から選ぶ
     runOmikuji = () =>{
-        console.log(this.omikuji)
-        console.log(this.cur_num)
         this.setText(this.omikuji[this.cur_num])
         this.cur_num++
         if(this.cur_num === this.omikuji.length - 1){
@@ -47,7 +44,7 @@ export default class Omikuji {
         this.setText(this.omikuji[this.selected_num])
     }
     // おみくじを始める
-    restartOmikuji = () => {
+    startOmikuji = () => {
         this.selected_num = 0
         clearInterval(this.interval)
         this.start()
