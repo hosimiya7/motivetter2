@@ -10,6 +10,7 @@
 <script>
 import KeyHandler from "../KeyHandler";
 import Screen from "../Screen";
+import Omikuji from "../Omikuji";
 import { MainCursor } from "../Cursor";
 import { SubCursor } from "../Cursor";
 
@@ -18,6 +19,7 @@ export default {
     this.mainCursor = new MainCursor();
     this.subCursor = new SubCursor();
     this.screen = new Screen();
+    this.omikuji = new omikuji();
   },
   mounted: function() {
     addEventListener("keyup", this.selectCommand);
@@ -98,6 +100,20 @@ export default {
           return this.screen.CHARACTER_FAREWELL;
         }
       }
+      if (this.$store.state.screenId === this.screen.GAME) {
+        if (this.$store.state.selectedSubCursor === this.subCursor.INDENT1) {
+          return this.screen.GAMESLOT;
+        }
+        if (this.$store.state.selectedSubCursor === this.subCursor.INDENT2) {
+          return this.screen.GAMEHIGHANDLOW;
+        }
+        if (this.$store.state.selectedSubCursor === this.subCursor.INDENT3) {
+          return this.screen.GAMEOMIKUJI;
+        }
+        if (this.$store.state.selectedSubCursor === this.subCursor.INDENT4) {
+          return this.screen.GAMEFOODSHOP;
+        }
+      }
       if (this.$store.state.screenId === this.screen.CHARACTER_FAREWELL) {
         return this.screen.FIRST;
       }
@@ -131,6 +147,19 @@ export default {
       if (this.$store.state.screenId === this.screen.CHARACTER_FAREWELL) {
         return this.screen.CHARACTER;
       }
+      if (this.$store.state.screenId === this.screen.GAMESLOT) {
+        return this.screen.GAME;
+      }
+      if (this.$store.state.screenId === this.screen.GAMEHIGHANDLOW) {
+        return this.screen.GAME;
+      }
+      if (this.$store.state.screenId === this.screen.GAMEOMIKUJI) {
+        return this.screen.GAME;
+      }
+      if (this.$store.state.screenId === this.screen.GAMEFOODSHOP) {
+        return this.screen.GAME;
+      }
+
     },
     isMovableMainCursor() {
       return this.$store.state.screenId === this.screen.FIRST;
@@ -204,7 +233,7 @@ export default {
           return;
         }
       }
-       if (this.$store.state.screenId === this.screen.CHARACTER_FOOD) {
+      if (this.$store.state.screenId === this.screen.CHARACTER_FOOD) {
         if (this.$store.state.selectedSubCursor === this.subCursor.INDENT1) {
           document.getElementById("strawberry").focus();
           return;
@@ -297,6 +326,14 @@ export default {
           .catch(function(error) {
             console.log(error);
           });
+      }
+    },
+    gameOmikuji() {
+       if (
+        this.$store.state.screenId === this.screen.GAMEOMIKUJI &&
+        this.$store.state.selectedSubCursor === this.subCursor.INDENT1
+      ) {
+
       }
     },
     getIsGoal() {

@@ -10,5 +10,9 @@ export default class Screen{
     CHARACTER_FOOD = 6
     CHARACTER_PICTURES = 7
     CHARACTER_FAREWELL = 8
+    GAMESLOT = 9
+    GAMEHIGHANDLOW = 10
+    GAMEOMIKUJI = 11
+    GAMEFOODSHOP = 12
 
 }
