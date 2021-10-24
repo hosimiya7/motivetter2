@@ -11,7 +11,8 @@ class GameController extends Controller
     public function postOmikujiPoint(Request $request)
     {
         $user = Auth::user();
-
+        $user->point = $request->point;
+        $user->save();
 
         return $user->point;
 

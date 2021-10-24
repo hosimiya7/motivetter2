@@ -5,7 +5,7 @@ export default class Omikuji {
     interval
     omikuji
 
-    constructor (){
+    constructor() {
         this.cur_num = 0
         this.selected_num = 0
         this.interval = 0
@@ -30,10 +30,10 @@ export default class Omikuji {
     }
 
     //　おみくじを配列から選ぶ
-    runOmikuji = () =>{
+    runOmikuji = () => {
         this.setText(this.omikuji[this.cur_num])
         this.cur_num++
-        if(this.cur_num === this.omikuji.length - 1){
+        if (this.cur_num === this.omikuji.length - 1) {
             this.cur_num = 0
         }
     }
@@ -48,5 +48,28 @@ export default class Omikuji {
         this.selected_num = 0
         clearInterval(this.interval)
         this.start()
+    }
+    omikujiShopPoint = () => {
+        if(this.selected_num === 0){
+            return 10
+        }
+        if(this.selected_num === 1){
+            return 8
+        }
+        if(this.selected_num === 2){
+            return 6
+        }
+        if(this.selected_num === 3){
+            return 5
+        }
+        if(this.selected_num === 4){
+            return 3
+        }
+        if(this.selected_num === 5){
+            return 1
+        }
+        if(this.selected_num === 6){
+            return 0
+        }
     }
 }

@@ -3,7 +3,7 @@
     <h3>▼ おみくじ 現在()ポイント</h3>
     <div class="game-index omikuji">
       <div id="main" class="main">
-        <div id="selected"></div>
+        <div id="selected">今日の運勢は…？</div>
       </div>
       <div class="start">
         <button v-bind:class="{active: this.$store.state.selectedSubCursor === 0}">はじめる</button>
@@ -16,8 +16,12 @@
 </template>
 
 <script>
+import Omikuji from "../Omikuji";
 export default {
-  created: function() {},
+  created: function() {
+    this.omikuji = new Omikuji();
+  },
+  mounted: function() {},
   data() {
     return {};
   },

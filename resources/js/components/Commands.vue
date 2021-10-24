@@ -341,7 +341,20 @@ export default {
         this.$store.state.selectedSubCursor === this.subCursor.INDENT2
       ) {
         this.omikuji.stopOmikuji()
+        this.$store.state.shopPoint = this.omikuji.omikujiShopPoint()
+        this.postShopPoint()
       }
+    },
+    postShopPoint() {
+      window.axios
+          .post("api/game/postOmikujiPoint")
+          .then(function(response) {
+            point: this.$store.state.shopPoint;
+            console.log(response);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
     },
     getIsGoal() {
       return this.$store.state.selectedMainCursor === this.mainCursor.GOAL;

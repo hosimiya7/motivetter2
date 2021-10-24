@@ -11,6 +11,7 @@ const store = new Vuex.Store({
         isInputMode: false,
         goals: null,
         characters: null,
+        shopPoint: null,
     },
     mutations: {
         incrementMainCursor(state) {
