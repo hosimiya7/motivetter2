@@ -26,11 +26,7 @@ export default {
   },
   data() {
     return {
-      goals: [],
-      characters: [],
       users: [],
-      gotExp: 0,
-      point: 0
     };
   },
   methods: {
@@ -361,7 +357,6 @@ export default {
         .then(response => {
           this.users = response["data"];
           this.$store.state.shopPoint = this.users.point
-          console.log(this.$store.state.shopPoint)
         })
         .catch(function(error) {
           console.log(error);
