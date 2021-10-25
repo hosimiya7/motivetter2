@@ -27,4 +27,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('api/character/delete', 'CharacterController@delete')->name('character.delete');
     Route::post('api/game/postPoint', 'GameController@postPoint')->name('game.postPoint');
     Route::get('api/game/showPoint', 'GameController@showPoint')->name('game.showPoint');
+    Route::post('api/game/postFood', 'GameController@postFood')->name('game.postFood');
+    Route::get('api/game/showFood', 'GameController@showFood')->name('game.showFood');
 });
