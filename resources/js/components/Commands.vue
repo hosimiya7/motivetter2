@@ -26,7 +26,7 @@ export default {
   },
   data() {
     return {
-      users: [],
+      users: []
     };
   },
   methods: {
@@ -54,6 +54,7 @@ export default {
           this.getExp();
           this.farewellCharacter();
           this.playOmikuji();
+          this.postFoodId();
           this.$store.commit("setScreenId", this.getNextScreenId());
           this.$store.state.selectedSubCursor = this.subCursor.INDENT1;
         }
@@ -356,11 +357,47 @@ export default {
         .get("api/game/showPoint")
         .then(response => {
           this.users = response["data"];
-          this.$store.state.shopPoint = this.users.point
+          this.$store.state.shopPoint = this.users.point;
         })
         .catch(function(error) {
           console.log(error);
         });
+    },
+    postFoodId() {
+      if (this.$store.state.screenId === this.screen.GAMEFOODSHOP) {
+        window.axios
+          .post("api/game/postFood", {
+            foodId: this.setFoodId()
+          })
+          .then(function(response) {
+            console.log(response);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+        window.axios
+          .get("api/game/showFood")
+          .then(function(response) {
+            console.log(response);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
+    },
+    setFoodId() {
+      if (this.$store.state.selectedSubCursor === this.subCursor.INDENT1) {
+        return 1;
+      }
+      if (this.$store.state.selectedSubCursor === this.subCursor.INDENT2) {
+        return 2;
+      }
+      if (this.$store.state.selectedSubCursor === this.subCursor.INDENT3) {
+        return 3;
+      }
+      if (this.$store.state.selectedSubCursor === this.subCursor.INDENT4) {
+        return 4;
+      }
     },
     getNewShopPoint(point) {
       return point;

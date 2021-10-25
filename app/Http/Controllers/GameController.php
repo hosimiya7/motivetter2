@@ -35,4 +35,39 @@ class GameController extends Controller
         return $user;
 
     }
+
+    public function postFood(Request $request)
+    {
+        /**
+         * @var User $user
+         */
+        $user = Auth::user();
+        $foodId = $request->foodId;
+
+        // foodIdがrequestと同じものを探す。見つかれば個数を1増やす。見つからなければそのfoodIdの行を作る。
+        $belonging = $user->belongings()->where('food_id', $foodId)->first();
+
+        if($belonging === null) {
+            $user->belongings()->create(['food_id' => $request->foodId,'quantity' => 1]);
+        }else{
+            $quantity = $belonging->quantity + 1;
+            $belonging->quantity = $quantity;
+            $belonging->save();
+        }
+
+        return $belonging;
+
+    }
+
+    public function showFood(Request $request)
+    {
+        /**
+         * @var User $user
+         */
+        $user = Auth::user();
+        $food = $user->belongings()->get();
+
+        return $food;
+
+    }
 }

@@ -46,5 +46,9 @@ class User extends Authenticatable
         return $this->hasOne(Goal::class);
     }
 
+    public function belongings() {
+        return $this->hasMany(Belonging::class);
+    }
+
 
 }
