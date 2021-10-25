@@ -176,7 +176,7 @@ h1 {
         margin: 0.5em 0 0 2em;
     }
     .chara-index {
-        margin: 1em 6em 0 0;
+        margin: 1em 0 0 0;
         .active {
             position: relative;
             &::before {
@@ -228,7 +228,8 @@ h1 {
         margin: 0.5em 0 0 2em;
     }
     .game-index {
-        margin: 1em 6em 0 0;
+        margin: 1em 0 0 0;
+
         .active {
             position: relative;
             &::before {
@@ -246,6 +247,9 @@ h1 {
             span {
                 &:first-child {
                     margin-right: 19em;
+                }
+                .margin-none{
+                    margin: 0;
                 }
             }
         }
