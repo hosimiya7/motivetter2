@@ -1,7 +1,7 @@
 <template>
     <div class="message-game">
 
-        <h3>▼ スロット 現在()ポイント</h3>
+        <h3>▼ スロット 現在{{ this.$store.state.shopPoint }}ポイント</h3>
 
         <div class="game-index">
             <div class="game-index-first">

@@ -12,6 +12,9 @@ class GoalController extends Controller
 
      public function create(Request $request)
     {
+        /**
+         * @var User $user
+         */
         $user = Auth::user();
         $user->goal->fill($request->all())->save();
 
@@ -21,8 +24,10 @@ class GoalController extends Controller
 
     public function show(Request $request)
     {
-
-        $user = Auth::User();
+        /**
+         * @var User $user
+         */
+        $user = Auth::user();
         $goal = $user->goal->first();
 
         return $goal;

@@ -28,7 +28,9 @@ export default {
     return {
       goals: [],
       characters: [],
-      gotExp: 0
+      users: [],
+      gotExp: 0,
+      point: 0
     };
   },
   methods: {
@@ -55,7 +57,7 @@ export default {
           this.postData();
           this.getExp();
           this.farewellCharacter();
-          this.playOmikuji()
+          this.playOmikuji();
           this.$store.commit("setScreenId", this.getNextScreenId());
           this.$store.state.selectedSubCursor = this.subCursor.INDENT1;
         }
@@ -160,7 +162,6 @@ export default {
       if (this.$store.state.screenId === this.screen.GAMEFOODSHOP) {
         return this.screen.GAME;
       }
-
     },
     isMovableMainCursor() {
       return this.$store.state.screenId === this.screen.FIRST;
@@ -330,31 +331,44 @@ export default {
       }
     },
     playOmikuji() {
-       if (
+      if (
         this.$store.state.screenId === this.screen.GAMEOMIKUJI &&
         this.$store.state.selectedSubCursor === this.subCursor.INDENT1
       ) {
-        this.omikuji.startOmikuji()
+        this.omikuji.startOmikuji();
       }
       if (
         this.$store.state.screenId === this.screen.GAMEOMIKUJI &&
         this.$store.state.selectedSubCursor === this.subCursor.INDENT2
       ) {
-        this.omikuji.stopOmikuji()
-        this.$store.state.shopPoint = this.omikuji.omikujiShopPoint()
-        this.postShopPoint()
+        this.omikuji.stopOmikuji();
+        this.postShopPoint(this.omikuji.omikujiShopPoint());
       }
     },
-    postShopPoint() {
+    postShopPoint(point) {
       window.axios
-          .post("api/game/postOmikujiPoint")
-          .then(function(response) {
-            point: this.$store.state.shopPoint;
-            console.log(response);
-          })
-          .catch(function(error) {
-            console.log(error);
-          });
+        .post("api/game/postPoint", {
+          point: this.getNewShopPoint(point)
+        })
+        .then(function(response) {
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      window.axios
+        .get("api/game/showPoint")
+        .then(response => {
+          this.users = response["data"];
+          this.$store.state.shopPoint = this.users.point
+          console.log(this.$store.state.shopPoint)
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    getNewShopPoint(point) {
+      return point;
     },
     getIsGoal() {
       return this.$store.state.selectedMainCursor === this.mainCursor.GOAL;
