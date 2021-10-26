@@ -71,6 +71,19 @@ export default {
       .catch(function(error) {
         console.log(error);
       });
+
+    window.axios
+      .get("api/game/showFood")
+      .then(response => {
+            let foods = response.data
+            foods.forEach(element => {
+              this.$store.state.foods[element.food_id] =
+                element.quantity;
+            });
+          })
+      .catch(function(error) {
+        console.log(error);
+      });
   }
 };
 </script>

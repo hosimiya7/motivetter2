@@ -370,15 +370,18 @@ export default {
             foodId: this.setFoodId()
           })
           .then(function(response) {
-            console.log(response);
           })
           .catch(function(error) {
             console.log(error);
           });
         window.axios
           .get("api/game/showFood")
-          .then(function(response) {
-            console.log(response);
+          .then(response => {
+            let foods = response.data
+            foods.forEach(element => {
+              this.$store.state.foods[element.food_id] =
+                element.quantity;
+            });
           })
           .catch(function(error) {
             console.log(error);

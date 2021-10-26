@@ -6,21 +6,21 @@
       <div class="game-index-first">
         <span v-bind:class="{active: this.$store.state.selectedSubCursor === 0}">
           いちご
-          <span class="margin-none" v-text="">0</span>個
+          <span class="margin-none" v-text="this.$store.state.foods[1]">0</span>個
         </span>
         <span v-bind:class="{active: this.$store.state.selectedSubCursor === 1}">
           おもち
-          <span class="margin-none" v-text="">0</span>個
+          <span class="margin-none" v-text="this.$store.state.foods[2]">0</span>個
         </span>
       </div>
       <div class="game-index-second">
         <span v-bind:class="{active: this.$store.state.selectedSubCursor === 2}">
           めろん
-          <span class="margin-none" v-text="">0</span>個
+          <span class="margin-none" v-text="this.$store.state.foods[3]">0</span>個
         </span>
         <span v-bind:class="{active: this.$store.state.selectedSubCursor === 3}">
           はっぱ
-          <span class="margin-none" v-text="">0</span>個
+          <span class="margin-none" v-text="this.$store.state.foods[4]">0</span>個
         </span>
       </div>
     </div>
