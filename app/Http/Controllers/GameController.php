@@ -65,9 +65,9 @@ class GameController extends Controller
          * @var User $user
          */
         $user = Auth::user();
-        $food = $user->belongings()->get();
+        $foods = $user->belongings()->get();
 
-        return $food;
+        return $foods;
 
     }
 }

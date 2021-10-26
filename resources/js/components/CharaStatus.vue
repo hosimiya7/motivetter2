@@ -4,12 +4,12 @@
 
     <div class="chara-index">
       <div class="chara-index-first">
-        <span>現在経験値: {{ characters.exp }}</span>
-        <span>好感度: {{ characters.love}}</span>
+        <span>現在経験値: {{ this.$store.state.characters.exp }}</span>
+        <span>好感度: {{ this.$store.state.characters.love}}</span>
       </div>
       <div class="chara-index-second">
         <span>必要経験値: 0</span>
-        <span>成長度: {{ characters.growth }}</span>
+        <span>成長度: {{ this.$store.state.characters.growth }}</span>
       </div>
     </div>
   </div>
@@ -24,15 +24,7 @@ export default {
     };
   },
   mounted() {
-    // ページ遷移挟まないと表示されない
-    window.axios
-      .get("/api/character/show")
-      .then(response => {
-        this.characters = response["data"];
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+
   },
   methods: {
   }
