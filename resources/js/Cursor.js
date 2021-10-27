@@ -13,5 +13,6 @@ export class SubCursor{
     INDENT2 = 1
     INDENT3 = 2
     INDENT4 = 3
+    INDENT5 = 4
 
 }

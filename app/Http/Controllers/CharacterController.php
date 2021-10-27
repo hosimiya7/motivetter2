@@ -60,4 +60,25 @@ class CharacterController extends Controller
 
         return $character;
     }
+
+    public function food(Request $request)
+    {
+        /**
+         * @var User $user
+         */
+        $user = Auth::User();
+        $belongings = $user->belongings()->get();
+
+        // 一定数で好感度を上げる、進化用条件のチェック、どれだけ食べたかDBでチェック
+        $food_quantity = [$request->strawberry,$request->moshi,$request->melon,$request->gress];
+
+        foreach ($belongings as $num => $belonging) {
+            $belonging->quantity -= $food_quantity[$num];
+            $belonging->save();
+        }
+
+        return $belongings;
+    }
+
+
 }

@@ -8,4 +8,9 @@ class Belonging extends Model
 {
     //
     protected $guarded = [];
+
+    public function food()
+    {
+        return $this->belongsTo(Food::class);
+    }
 }

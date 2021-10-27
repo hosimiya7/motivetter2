@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Belonging;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +22,6 @@ class GameController extends Controller
         $user->save();
 
         return $user->point;
-
     }
 
     public function showPoint(Request $request)
@@ -33,7 +33,6 @@ class GameController extends Controller
         $user->first;
 
         return $user;
-
     }
 
     public function postFood(Request $request)
@@ -44,19 +43,30 @@ class GameController extends Controller
         $user = Auth::user();
         $foodId = $request->foodId;
 
-        // foodIdがrequestと同じものを探す。見つかれば個数を1増やす。見つからなければそのfoodIdの行を作る。
+        // 値段
+        $foods = DB::table('foods')->where('id', $foodId)->first();
+        $price = $foods->price;
+
+        // 現在ポイント
+        $currentPoint = $user->point;
+
         $belonging = $user->belongings()->where('food_id', $foodId)->first();
 
-        if($belonging === null) {
-            $user->belongings()->create(['food_id' => $request->foodId,'quantity' => 1]);
-        }else{
-            $quantity = $belonging->quantity + 1;
-            $belonging->quantity = $quantity;
-            $belonging->save();
+        if ($currentPoint - $price > 0) {
+            $point = $currentPoint - $price;
+            $user->point = $point;
+            $user->save();
+            // foodIdがrequestと同じものを探す。見つかれば個数を1増やす。見つからなければそのfoodIdの行を作る。
+            if ($belonging === null) {
+                $user->belongings()->create(['food_id' => $request->foodId, 'quantity' => 1]);
+            } else {
+                $quantity = $belonging->quantity + 1;
+                $belonging->quantity = $quantity;
+                $belonging->save();
+            }
         }
 
-        return $belonging;
-
+        return $price;
     }
 
     public function showFood(Request $request)
@@ -68,6 +78,5 @@ class GameController extends Controller
         $foods = $user->belongings()->get();
 
         return $foods;
-
     }
 }

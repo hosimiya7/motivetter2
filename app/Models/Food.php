@@ -4,9 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Game extends Model
+class Food extends Model
 {
-    protected $guarded = [
-
-    ];
+    //
+    protected $guarded = [];
 }

@@ -55,6 +55,7 @@ export default {
           this.farewellCharacter();
           this.playOmikuji();
           this.postFoodId();
+          this.postCharacterFood();
           this.$store.commit("setScreenId", this.getNextScreenId());
           this.$store.state.selectedSubCursor = this.subCursor.INDENT1;
         }
@@ -168,7 +169,7 @@ export default {
         return 1;
       }
       if (this.$store.state.screenId === this.screen.CHARACTER_FOOD) {
-        return 5;
+        return 4;
       }
       if (this.$store.state.screenId === this.screen.CHARACTER_FAREWELL) {
         return 1;
@@ -327,6 +328,39 @@ export default {
           });
       }
     },
+    postCharacterFood() {
+      if (
+        this.$store.state.screenId === this.screen.CHARACTER_FOOD &&
+        this.$store.state.selectedSubCursor === this.subCursor.INDENT5
+      ) {
+        window.axios
+          .post("api/character/food", {
+            strawberry: document.getElementById("strawberry").value,
+            mochi: document.getElementById("mochi").value,
+            melon: document.getElementById("melon").value,
+            gress: document.getElementById("grass").value
+          })
+          .then(function(response) {
+            console.log(response);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+        window.axios
+        // 即時反映されない。カーソルを動かすと反映される。
+          .get("api/game/showFood")
+          .then(response => {
+            let foods = response.data;
+            foods.forEach(element => {
+              this.$store.state.foods[element.food_id] = element.quantity;
+              console.log(element.quantity);
+            });
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
+    },
     playOmikuji() {
       if (
         this.$store.state.screenId === this.screen.GAMEOMIKUJI &&
@@ -347,9 +381,7 @@ export default {
         .post("api/game/postPoint", {
           point: this.getNewShopPoint(point)
         })
-        .then(function(response) {
-          console.log(response);
-        })
+        .then(function(response) {})
         .catch(function(error) {
           console.log(error);
         });
@@ -369,19 +401,28 @@ export default {
           .post("api/game/postFood", {
             foodId: this.setFoodId()
           })
-          .then(function(response) {
-          })
+          .then(function(response) {})
           .catch(function(error) {
             console.log(error);
           });
         window.axios
           .get("api/game/showFood")
           .then(response => {
-            let foods = response.data
+            let foods = response.data;
             foods.forEach(element => {
-              this.$store.state.foods[element.food_id] =
-                element.quantity;
+              this.$store.state.foods[element.food_id] = element.quantity;
+              console.log(element.quantity);
             });
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+
+        window.axios
+          .get("api/game/showPoint")
+          .then(response => {
+            this.users = response["data"];
+            this.$store.state.shopPoint = this.users.point;
           })
           .catch(function(error) {
             console.log(error);
