@@ -4,22 +4,28 @@
     <div class="main-wrapper">
       <div class="flex">
         <div class="command">
-          <Commands></Commands>
+          <Commands v-on:postData="reflectGoal"></Commands>
         </div>
         <div class="goal">
-          <span v-text="this.$store.state.goals.number"></span>
-          <span v-text="this.$store.state.goals.unit"></span>
-          <span v-text="this.$store.state.goals.goal"></span>
+          <span v-text="this.goal"></span>
+          <span v-text="this.number"></span>
+          <span v-text="this.unit"></span>
         </div>
         <div class="status">
           <ul>
-            <li>名前：{{ this.$store.state.characters.character_template.name }}</li>
-            <li>現在の経験値：{{ this.$store.state.characters.exp }}</li>
+            <li>
+              名前：
+              <span v-text="this.name"></span>
+            </li>
+            <li>
+              現在の経験値：
+              <span v-text="this.exp"></span>
+            </li>
           </ul>
         </div>
       </div>
       <div class="char">
-        <MyCanvas></MyCanvas>
+        <MyCanvas :chara_id="this.chara_id"></MyCanvas>
         <!-- （ここにキャラクターが入ります） -->
       </div>
       <div class="message">
@@ -29,24 +35,33 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import MyCanvas from "./MyCanvas.vue";
 import Commands from "./Commands.vue";
+import Message from "./Message.vue";
+
 export default {
   components: {
     MyCanvas,
-    Commands
+    Commands,
+    Message
   },
   data() {
     return {
-      characters: []
+      goal: null,
+      number: null,
+      unit: null,
+      name: null,
+      exp: null,
+      chara_id: null,
+      foods: null
     };
   },
   mounted() {
     window.axios
       .get("/api/goal/show")
       .then(response => {
-        this.$store.state.goals = response["data"];
+        this.reflectGoal(response["data"]);
       })
       .catch(function(error) {
         console.log(error);
@@ -55,7 +70,9 @@ export default {
     window.axios
       .get("/api/character/show")
       .then(response => {
-        this.$store.state.characters = response["data"];
+        this.name = response["data"].character_template.name;
+        this.exp = response["data"].exp;
+        this.chara_id = response["data"].character_template.id;
       })
       .catch(function(error) {
         console.log(error);
@@ -66,7 +83,6 @@ export default {
       .then(response => {
         this.users = response["data"];
         this.$store.state.shopPoint = this.users.point;
-        console.log(this.$store.state.shopPoint);
       })
       .catch(function(error) {
         console.log(error);
@@ -75,15 +91,18 @@ export default {
     window.axios
       .get("api/game/showFood")
       .then(response => {
-            let foods = response.data
-            foods.forEach(element => {
-              this.$store.state.foods[element.food_id] =
-                element.quantity;
-            });
-          })
+        this.foods = response.data;
+      })
       .catch(function(error) {
         console.log(error);
       });
+  },
+  methods: {
+    reflectGoal(goal) {
+      this.goal = goal.goal;
+      this.number = Number(goal.number);
+      this.unit = goal.unit;
+    },
   }
 };
 </script>

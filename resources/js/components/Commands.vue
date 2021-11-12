@@ -258,26 +258,20 @@ export default {
         this.$store.state.selectedSubCursor === this.subCursor.INDENT4
       ) {
         // 登録・if文で要素が入っていたら送る。それ以外はエラーを出す
+        const postData = {
+          goal: document.getElementById("goal").value,
+          number: document.getElementById("number").value,
+          unit: document.getElementById("unit").value
+        };
         window.axios
-          .post("api/goal/create", {
-            goal: document.getElementById("goal").value,
-            number: document.getElementById("number").value,
-            unit: document.getElementById("unit").value
-          })
+          .post("api/goal/create", postData)
           .then(function(response) {
             console.log(response);
           })
           .catch(function(error) {
             console.log(error);
           });
-        window.axios
-          .get("/api/goal/show")
-          .then(response => {
-            this.$store.state.goals = response["data"];
-          })
-          .catch(function(error) {
-            console.log(error);
-          });
+        this.$emit("postData", postData);
       }
     },
     getExp() {
@@ -328,12 +322,12 @@ export default {
           });
       }
     },
-    postCharacterFood() {
+    async postCharacterFood() {
       if (
         this.$store.state.screenId === this.screen.CHARACTER_FOOD &&
         this.$store.state.selectedSubCursor === this.subCursor.INDENT5
       ) {
-        window.axios
+        await window.axios
           .post("api/character/food", {
             strawberry: document.getElementById("strawberry").value,
             mochi: document.getElementById("mochi").value,
@@ -346,15 +340,12 @@ export default {
           .catch(function(error) {
             console.log(error);
           });
-        window.axios
-        // 即時反映されない。カーソルを動かすと反映される。
+        await window.axios
+          // 即時反映されない。カーソルを動かすと反映される。
           .get("api/game/showFood")
           .then(response => {
-            let foods = response.data;
-            foods.forEach(element => {
-              this.$store.state.foods[element.food_id] = element.quantity;
-              console.log(element.quantity);
-            });
+            this.$store.state.foods = response.data;
+            console.log(response.data);
           })
           .catch(function(error) {
             console.log(error);
@@ -408,11 +399,7 @@ export default {
         window.axios
           .get("api/game/showFood")
           .then(response => {
-            let foods = response.data;
-            foods.forEach(element => {
-              this.$store.state.foods[element.food_id] = element.quantity;
-              console.log(element.quantity);
-            });
+            this.$store.state.foods = response.data;
           })
           .catch(function(error) {
             console.log(error);
