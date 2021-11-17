@@ -42,8 +42,9 @@ class CharacterController extends Controller
             $gotExp = 100;
         }
 
-        // 実行をしないと動かない。
-        $character = $user->character->first();
+        // 実行をしないと動かない。user_idが違う…。
+        $character = $user->character;
+        Log::debug($character);
         $currentExp = $character->exp;
         $character->exp = ($currentExp + $gotExp);
 
@@ -51,7 +52,7 @@ class CharacterController extends Controller
             $character->character_template_id = 2;
             $character->growth = 1;
         }
-        if($currentExp + $gotExp > 1200){
+        if ($currentExp + $gotExp > 1200) {
             $character->character_template_id = 3;
             $character->growth = 2;
         }
@@ -67,18 +68,32 @@ class CharacterController extends Controller
          * @var User $user
          */
         $user = Auth::User();
-        $belongings = $user->belongings()->get();
 
-        // 一定数で好感度を上げる、進化用条件のチェック、どれだけ食べたかDBでチェック
-        $food_quantity = [$request->strawberry,$request->moshi,$request->melon,$request->gress];
+        // 一定数で好感度を上げる、何をどれだけ食べたか保存
+        $food_quantities = [$request->strawberry, $request->mochi, $request->melon, $request->gress];
 
-        foreach ($belongings as $num => $belonging) {
-            $belonging->quantity -= $food_quantity[$num];
-            $belonging->save();
+        foreach ($food_quantities as $num => $food_quantity) {
+            // $belonging->quantity -= $food_quantitys[$num];
+            // $belonging->save();
+            $belongings = $user->belongings()->where('food_id', $num + 1)->first();
+            if ($belongings === null) {
+                $user->belongings()->create(['food_id' => $num + 1, 'quantity' => $food_quantity !== null ? $food_quantity : 0]);
+            } else {
+                $belongings->quantity -= $food_quantity;
+                $belongings->save();
+            }
+        }
+
+        foreach ($food_quantities as $num => $food_quantity) {
+            $ate_foods = $user->ate_foods()->where('food_id', $num + 1)->first();
+            if ($ate_foods === null) {
+                $user->ate_foods()->create(['food_id' => $num + 1, 'quantity' => $food_quantity !== null ? $food_quantity : 0]);
+            } else {
+                $ate_foods->quantity += $food_quantity;
+                $ate_foods->save();
+            }
         }
 
         return $belongings;
     }
-
-
 }

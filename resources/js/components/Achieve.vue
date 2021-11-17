@@ -5,7 +5,7 @@
     <div class="achieve" v-bind:class="{active: this.$store.state.selectedSubCursor === 0}">
       <span>入力:</span>
       <input type="text" name id="achieve" placeholder="3" />
-      <span>{{ this.$store.state.goals.unit }} 達成！！</span>
+      <span>{{ this.unit }} 達成！！</span>
     </div>
     <div class="register" v-bind:class="{active: this.$store.state.selectedSubCursor === 1}">
       <span>登録</span>
@@ -15,6 +15,7 @@
 
 <script>
 export default {
+  props: ["unit"],
   created: function() {
 
   },

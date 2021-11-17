@@ -4,7 +4,7 @@
     <div class="main-wrapper">
       <div class="flex">
         <div class="command">
-          <Commands v-on:postData="reflectGoal"></Commands>
+          <Commands v-on:postGoalData="reflectGoal" v-on:postCharaData="reflectCharacter" v-on:postExpData="reflectExp"></Commands>
         </div>
         <div class="goal">
           <span v-text="this.goal"></span>
@@ -29,7 +29,7 @@
         <!-- （ここにキャラクターが入ります） -->
       </div>
       <div class="message">
-        <Message></Message>
+        <Message :unit="this.unit" :line="this.chara_line"></Message>
       </div>
     </div>
   </div>
@@ -54,6 +54,7 @@ export default {
       name: null,
       exp: null,
       chara_id: null,
+      chara_line: null,
       foods: null
     };
   },
@@ -70,9 +71,7 @@ export default {
     window.axios
       .get("/api/character/show")
       .then(response => {
-        this.name = response["data"].character_template.name;
-        this.exp = response["data"].exp;
-        this.chara_id = response["data"].character_template.id;
+        this.reflectCharacter(response["data"]);
       })
       .catch(function(error) {
         console.log(error);
@@ -103,6 +102,15 @@ export default {
       this.number = Number(goal.number);
       this.unit = goal.unit;
     },
+    reflectCharacter(chara) {
+      this.name = chara.character_template.name;
+      this.exp = chara.exp;
+      this.chara_id = chara.character_template.id;
+      this.chara_line = chara.character_template.line;
+    },
+    reflectExp(exp){
+      this.exp = exp;
+    }
   }
 };
 </script>
