@@ -12,7 +12,7 @@
     <GameSlot :point="this.point" v-if="this.$store.state.screenId === 9" />
     <GameHighAndLow :point="this.point" v-if="this.$store.state.screenId === 10" />
     <GameOmikuji :point="this.point" v-if="this.$store.state.screenId === 11" />
-    <GameFoodShop :point="this.point" v-if="this.$store.state.screenId === 12" />
+    <GameFoodShop :point="this.point" :foods="foods" v-if="this.$store.state.screenId === 12" />
   </div>
 </template>
 
