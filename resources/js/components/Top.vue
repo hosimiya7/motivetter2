@@ -4,7 +4,12 @@
     <div class="main-wrapper">
       <div class="flex">
         <div class="command">
-          <Commands v-on:postGoalData="reflectGoal" v-on:postCharaData="reflectCharacter" v-on:postExpData="reflectExp"></Commands>
+          <Commands
+            v-on:postGoalData="reflectGoal"
+            v-on:postCharaData="reflectCharacter"
+            v-on:postExpData="reflectExp"
+            v-on:postPointData="reflectshopPoint"
+          ></Commands>
         </div>
         <div class="goal">
           <span v-text="this.goal"></span>
@@ -29,7 +34,7 @@
         <!-- （ここにキャラクターが入ります） -->
       </div>
       <div class="message">
-        <Message :unit="this.unit" :line="this.chara_line"></Message>
+        <Message :unit="this.unit" :line="this.chara_line" :point="this.point" :foods="this.foods"></Message>
       </div>
     </div>
   </div>
@@ -55,6 +60,7 @@ export default {
       exp: null,
       chara_id: null,
       chara_line: null,
+      point: null,
       foods: null
     };
   },
@@ -80,8 +86,7 @@ export default {
     window.axios
       .get("api/game/showPoint")
       .then(response => {
-        this.users = response["data"];
-        this.$store.state.shopPoint = this.users.point;
+        this.reflectshopPoint(response["data"].point);
       })
       .catch(function(error) {
         console.log(error);
@@ -91,6 +96,7 @@ export default {
       .get("api/game/showFood")
       .then(response => {
         this.foods = response.data;
+        console.log(this.foods)
       })
       .catch(function(error) {
         console.log(error);
@@ -108,8 +114,14 @@ export default {
       this.chara_id = chara.character_template.id;
       this.chara_line = chara.character_template.line;
     },
-    reflectExp(exp){
+    reflectExp(exp) {
       this.exp = exp;
+    },
+    reflectshopPoint(point) {
+      this.point = point;
+    },
+    reflectFood(foods) {
+      this.foods = foods;
     }
   }
 };

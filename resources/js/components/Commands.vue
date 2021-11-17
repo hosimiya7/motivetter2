@@ -27,7 +27,8 @@ export default {
   data() {
     return {
       users: [],
-      newExp: null
+      newExp: null,
+      point: null
     };
   },
   methods: {
@@ -284,15 +285,18 @@ export default {
           .post("api/character/updateExp", {
             achieve: document.getElementById("achieve").value
           })
-          .then(function(response) {
-            let exp = response.data.exp;
-            this.newExp = exp;
-            this.$emit("postExpData", this.newExp);
-          }.bind(this))
-          .catch(function(error) {
-            console.log(error);
-          }.bind(this));
-
+          .then(
+            function(response) {
+              let exp = response.data.exp;
+              this.newExp = exp;
+              this.$emit("postExpData", this.newExp);
+            }.bind(this)
+          )
+          .catch(
+            function(error) {
+              console.log(error);
+            }.bind(this)
+          );
       }
     },
     farewellCharacter() {
@@ -300,9 +304,13 @@ export default {
         this.$store.state.screenId === this.screen.CHARACTER_FAREWELL &&
         this.$store.state.selectedSubCursor === this.subCursor.INDENT1
       ) {
-         const postData = {
-          character_template: {id: 1, name: "もっち～", line: "ごはんまだ～？？"},
-          exp: 0,
+        const postData = {
+          character_template: {
+            id: 1,
+            name: "もっち～",
+            line: "ごはんまだ～？？"
+          },
+          exp: 0
         };
         window.axios
           .post("api/character/delete")
@@ -313,15 +321,6 @@ export default {
             console.log(error);
           });
         this.$emit("postCharaData", postData);
-
-        // window.axios
-        //   .get("/api/character/show")
-        //   .then(response => {
-        //     this.$store.state.characters = response["data"];
-        //   })
-        //   .catch(function(error) {
-        //     console.log(error);
-        //   });
       }
     },
     async postCharacterFood() {
@@ -374,19 +373,17 @@ export default {
         .post("api/game/postPoint", {
           point: this.getNewShopPoint(point)
         })
-        .then(function(response) {})
-        .catch(function(error) {
-          console.log(error);
-        });
-      window.axios
-        .get("api/game/showPoint")
-        .then(response => {
-          this.users = response["data"];
-          this.$store.state.shopPoint = this.users.point;
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+        .then(
+          function(response) {
+            this.point = response["data"];
+            this.$emit("postPointData", this.point);
+          }.bind(this)
+        )
+        .catch(
+          function(error) {
+            console.log(error);
+          }.bind(this)
+        );
     },
     postFoodId() {
       if (this.$store.state.screenId === this.screen.GAMEFOODSHOP) {

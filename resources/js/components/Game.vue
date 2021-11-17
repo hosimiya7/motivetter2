@@ -1,7 +1,7 @@
 <template>
     <div class="message-game">
 
-        <h3>▼ ミニゲーム 現在{{ this.$store.state.shopPoint }}ポイント</h3>
+        <h3>▼ ミニゲーム 現在{{ this.point }}ポイント</h3>
 
         <div class="game-index">
             <div class="game-index-first">
@@ -19,6 +19,7 @@
 
 <script>
 export default {
+    props: ["point"],
     created: function() {
     },
     data() {

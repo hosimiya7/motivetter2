@@ -1,6 +1,6 @@
 <template>
   <div class="message-game">
-    <h3>▼ えさ販売店 現在{{ this.$store.state.shopPoint }}ポイント</h3>
+    <h3>▼ えさ販売店 現在{{ this.point }}ポイント</h3>
 
     <div class="game-index">
       <div class="game-index-first">
@@ -30,3 +30,16 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+    props: ["point"],
+    created: function() {
+    },
+    data() {
+        return {
+        }
+    },
+    methods: {
+    }
+}
+</script>

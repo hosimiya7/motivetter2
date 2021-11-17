@@ -1,6 +1,6 @@
 <template>
   <div class="message-game">
-    <h3>▼ おみくじ 現在{{ this.$store.state.shopPoint }}ポイント</h3>
+    <h3>▼ おみくじ 現在{{ this.point }}ポイント</h3>
     <div class="game-index omikuji">
       <div id="main" class="main">
         <div id="selected">今日の運勢は…？</div>
@@ -18,6 +18,7 @@
 <script>
 import Omikuji from "../Omikuji";
 export default {
+  props: ["point"],
   created: function() {
     this.omikuji = new Omikuji();
   },

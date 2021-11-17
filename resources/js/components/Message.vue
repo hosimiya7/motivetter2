@@ -1,26 +1,27 @@
 <template>
   <div>
-    <p v-if="this.$store.state.screenId === 0">{{ this.$store.state.characters.character_template.line }}</p>
+    <p v-if="this.$store.state.screenId === 0">{{ this.line }}</p>
     <Goal v-if="this.$store.state.screenId === 1" />
-    <Achieve v-if="this.$store.state.screenId === 2" />
+    <Achieve :unit="this.unit" v-if="this.$store.state.screenId === 2" />
     <Chara v-if="this.$store.state.screenId === 3" />
-    <Game v-if="this.$store.state.screenId === 4" />
+    <Game :point="this.point" v-if="this.$store.state.screenId === 4" />
     <CharaStatus v-if="this.$store.state.screenId === 5" />
-    <CharaFood v-if="this.$store.state.screenId === 6" />
+    <CharaFood :foods="foods" v-if="this.$store.state.screenId === 6" />
     <CharaPictures v-if="this.$store.state.screenId === 7" />
     <CharaFarewell v-if="this.$store.state.screenId === 8" />
-    <GameSlot v-if="this.$store.state.screenId === 9" />
-    <GameHighAndLow v-if="this.$store.state.screenId === 10" />
-    <GameOmikuji v-if="this.$store.state.screenId === 11" />
-    <GameFoodShop v-if="this.$store.state.screenId === 12" />
+    <GameSlot :point="this.point" v-if="this.$store.state.screenId === 9" />
+    <GameHighAndLow :point="this.point" v-if="this.$store.state.screenId === 10" />
+    <GameOmikuji :point="this.point" v-if="this.$store.state.screenId === 11" />
+    <GameFoodShop :point="this.point" v-if="this.$store.state.screenId === 12" />
   </div>
 </template>
 
 <script>
 export default {
+  props: ["unit", "line", "point", "foods"],
   data() {
     return {
-      characters: []
+
     };
   },
   mounted() {
