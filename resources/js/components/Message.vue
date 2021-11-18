@@ -5,7 +5,7 @@
     <Achieve :unit="this.unit" v-if="this.$store.state.screenId === 2" />
     <Chara v-if="this.$store.state.screenId === 3" />
     <Game :point="this.point" v-if="this.$store.state.screenId === 4" />
-    <CharaStatus v-if="this.$store.state.screenId === 5" />
+    <CharaStatus :exp="this.exp" :love="this.love" :growth="this.growth" v-if="this.$store.state.screenId === 5" />
     <CharaFood :foods="foods" v-if="this.$store.state.screenId === 6" />
     <CharaPictures v-if="this.$store.state.screenId === 7" />
     <CharaFarewell v-if="this.$store.state.screenId === 8" />
@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  props: ["unit", "line", "point", "foods"],
+  props: ["unit", "exp", "love", "growth", "line", "point", "foods"],
   data() {
     return {
 

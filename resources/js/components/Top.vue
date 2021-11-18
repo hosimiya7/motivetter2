@@ -34,7 +34,15 @@
         <!-- （ここにキャラクターが入ります） -->
       </div>
       <div class="message">
-        <Message :unit="this.unit" :line="this.chara_line" :point="this.point" :foods="this.foods"></Message>
+        <Message
+          :unit="this.unit"
+          :line="this.chara_line"
+          :point="this.point"
+          :foods="this.foods"
+          :exp="this.exp"
+          :love="this.love"
+          :growth="this.growth"
+        ></Message>
       </div>
     </div>
   </div>
@@ -58,6 +66,8 @@ export default {
       unit: null,
       name: null,
       exp: null,
+      love: null,
+      growth: null,
       chara_id: null,
       chara_line: null,
       point: null,
@@ -112,6 +122,8 @@ export default {
       this.exp = chara.exp;
       this.chara_id = chara.character_template.id;
       this.chara_line = chara.character_template.line;
+      this.love = chara.love;
+      this.growth = chara.growth;
     },
     reflectExp(exp) {
       this.exp = exp;
