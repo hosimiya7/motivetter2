@@ -96,7 +96,6 @@ export default {
       .get("api/game/showFood")
       .then(response => {
         this.foods = response.data;
-        console.log(this.foods)
       })
       .catch(function(error) {
         console.log(error);

@@ -10,8 +10,8 @@
           v-bind:class="{active: $store.state.selectedSubCursor === (food.id - 1)}"
         >
           <span v-text="food.name"></span>
-          <input type="text" id="`food_${food.id}`" placeholder="数値" />
-          <span></span>
+          <input type="text" :id="`food_${food.id}`" placeholder="数値" />
+          <span v-text="food.quantity"></span>
           <span>個</span>
         </div>
       </div>

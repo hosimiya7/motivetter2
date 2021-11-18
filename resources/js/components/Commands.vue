@@ -237,19 +237,19 @@ export default {
       }
       if (this.$store.state.screenId === this.screen.CHARACTER_FOOD) {
         if (this.$store.state.selectedSubCursor === this.subCursor.INDENT1) {
-          document.getElementById("strawberry").focus();
+          document.getElementById("food_1").focus();
           return;
         }
         if (this.$store.state.selectedSubCursor === this.subCursor.INDENT2) {
-          document.getElementById("mochi").focus();
+          document.getElementById("food_2").focus();
           return;
         }
         if (this.$store.state.selectedSubCursor === this.subCursor.INDENT3) {
-          document.getElementById("melon").focus();
+          document.getElementById("food_3").focus();
           return;
         }
         if (this.$store.state.selectedSubCursor === this.subCursor.INDENT4) {
-          document.getElementById("grass").focus();
+          document.getElementById("food_4").focus();
           return;
         }
       }
@@ -330,23 +330,13 @@ export default {
       ) {
         await window.axios
           .post("api/character/food", {
-            strawberry: document.getElementById("strawberry").value,
-            mochi: document.getElementById("mochi").value,
-            melon: document.getElementById("melon").value,
-            gress: document.getElementById("grass").value
+            food_1: document.getElementById("food_1").value,
+            food_2: document.getElementById("food_2").value,
+            food_3: document.getElementById("food_3").value,
+            food_4: document.getElementById("food_4").value
           })
           .then(function(response) {
             console.log(response);
-          })
-          .catch(function(error) {
-            console.log(error);
-          });
-        await window.axios
-          // 即時反映されない。カーソルを動かすと反映される。
-          .get("api/game/showFood")
-          .then(response => {
-            this.$store.state.foods = response.data;
-            console.log(response.data);
           })
           .catch(function(error) {
             console.log(error);
