@@ -5,10 +5,12 @@
       <div class="flex">
         <div class="command">
           <Commands
+            :foods="this.foods"
             v-on:postGoalData="reflectGoal"
             v-on:postCharaData="reflectCharacter"
             v-on:postExpData="reflectExp"
             v-on:postPointData="reflectshopPoint"
+            v-on:postFoodData="reflectFood"
           ></Commands>
         </div>
         <div class="goal">
@@ -105,7 +107,7 @@ export default {
     window.axios
       .get("api/game/showFood")
       .then(response => {
-        this.foods = response.data;
+        this.reflectFood(response.data);
       })
       .catch(function(error) {
         console.log(error);
@@ -132,6 +134,7 @@ export default {
       this.point = point;
     },
     reflectFood(foods) {
+      console.log(foods)
       this.foods = foods;
     }
   }

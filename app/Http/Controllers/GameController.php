@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Belonging;
+use App\Models\Food;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -51,6 +52,7 @@ class GameController extends Controller
         $currentPoint = $user->point;
 
         $belonging = $user->belongings()->where('food_id', $foodId)->first();
+        $food = $user->belongings()->get();
 
         if ($currentPoint - $price > 0) {
             $point = $currentPoint - $price;
@@ -66,7 +68,7 @@ class GameController extends Controller
             }
         }
 
-        return $price;
+        return [$food, $user];
     }
 
     public function showFood(Request $request)
@@ -75,8 +77,13 @@ class GameController extends Controller
          * @var User $user
          */
         $user = Auth::user();
-        $foods = $user->belongings()->get();
+        // $foods = $user->belongings()->with('foods')->get();
 
-        return $foods;
+        $query = Belonging::query()
+            ->join('foods', 'belongings.food_id', '=', 'foods.id')
+            ->where('user_id', $user->id)
+            ->select(['belongings.*', 'foods.name']);
+
+        return $query->get();
     }
 }

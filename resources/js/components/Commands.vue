@@ -15,6 +15,7 @@ import { MainCursor } from "../Cursor";
 import { SubCursor } from "../Cursor";
 
 export default {
+  props: ["foods"],
   created: function() {
     this.mainCursor = new MainCursor();
     this.subCursor = new SubCursor();
@@ -28,7 +29,8 @@ export default {
     return {
       users: [],
       newExp: null,
-      point: null
+      point: null,
+      food: null
     };
   },
   methods: {
@@ -196,16 +198,28 @@ export default {
         }
       }
       if (this.$store.state.screenId === this.screen.CHARACTER_FOOD) {
-        if (this.$store.state.selectedSubCursor === this.subCursor.INDENT1) {
+        if (
+          this.$store.state.selectedSubCursor === this.subCursor.INDENT1 &&
+          this.foods[0].quantity > 0
+        ) {
           return true;
         }
-        if (this.$store.state.selectedSubCursor === this.subCursor.INDENT2) {
+        if (
+          this.$store.state.selectedSubCursor === this.subCursor.INDENT2 &&
+          this.foods[1].quantity > 0
+        ) {
           return true;
         }
-        if (this.$store.state.selectedSubCursor === this.subCursor.INDENT3) {
+        if (
+          this.$store.state.selectedSubCursor === this.subCursor.INDENT3 &&
+          this.foods[2].quantity > 0
+        ) {
           return true;
         }
-        if (this.$store.state.selectedSubCursor === this.subCursor.INDENT4) {
+        if (
+          this.$store.state.selectedSubCursor === this.subCursor.INDENT4 &&
+          this.foods[3].quantity > 0
+        ) {
           return true;
         }
       }
@@ -335,12 +349,18 @@ export default {
             food_3: document.getElementById("food_3").value,
             food_4: document.getElementById("food_4").value
           })
-          .then(function(response) {
-            console.log(response);
-          })
-          .catch(function(error) {
-            console.log(error);
-          });
+          .then(
+            function(response) {
+              console.log(response);
+              this.food = response["data"];
+              this.$emit("postFoodData", this.food);
+            }.bind(this)
+          )
+          .catch(
+            function(error) {
+              console.log(error);
+            }.bind(this)
+          );
       }
     },
     playOmikuji() {
@@ -381,28 +401,20 @@ export default {
           .post("api/game/postFood", {
             foodId: this.setFoodId()
           })
-          .then(function(response) {})
-          .catch(function(error) {
-            console.log(error);
-          });
-        window.axios
-          .get("api/game/showFood")
-          .then(response => {
-            this.$store.state.foods = response.data;
-          })
-          .catch(function(error) {
-            console.log(error);
-          });
-
-        window.axios
-          .get("api/game/showPoint")
-          .then(response => {
-            this.users = response["data"];
-            this.$store.state.shopPoint = this.users.point;
-          })
-          .catch(function(error) {
-            console.log(error);
-          });
+          .then(
+            function(response) {
+              console.log(response["data"][0]);
+              this.point = response["data"][1].point;
+              this.$emit("postPointData", this.point);
+              this.food = response["data"][0];
+              this.$emit("postFoodData", this.food);
+            }.bind(this)
+          )
+          .catch(
+            function(error) {
+              console.log(error);
+            }.bind(this)
+          );
       }
     },
     setFoodId() {

@@ -26,6 +26,7 @@ class CharacterController extends Controller
 
     public function delete(Request $request)
     {
+        // 今まで食べたご飯を消す
         return Character::getRenewCharacter(Auth::User());
     }
 
@@ -44,7 +45,6 @@ class CharacterController extends Controller
 
         // 実行をしないと動かない。user_idが違う…。
         $character = $user->character;
-        Log::debug($character);
         $currentExp = $character->exp;
         $character->exp = ($currentExp + $gotExp);
 
@@ -69,12 +69,10 @@ class CharacterController extends Controller
          */
         $user = Auth::User();
 
-        // 一定数で好感度を上げる、何をどれだけ食べたか保存
-        $food_quantities = [$request->strawberry, $request->mochi, $request->melon, $request->gress];
+        // 一定数で好感度を上げる　0以上でないといけない nameを紐づけたい
+        $food_quantities = [$request->food_1, $request->food_2, $request->food_3, $request->food_4];
 
         foreach ($food_quantities as $num => $food_quantity) {
-            // $belonging->quantity -= $food_quantitys[$num];
-            // $belonging->save();
             $belongings = $user->belongings()->where('food_id', $num + 1)->first();
             if ($belongings === null) {
                 $user->belongings()->create(['food_id' => $num + 1, 'quantity' => $food_quantity !== null ? $food_quantity : 0]);
@@ -94,6 +92,6 @@ class CharacterController extends Controller
             }
         }
 
-        return $belongings;
+        return $user->belongings()->get();
     }
 }

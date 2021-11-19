@@ -46,7 +46,6 @@
 export default {
   props: ["point", "foods"],
   created: function() {
-    console.log(this.foods[0].name);
   },
   data() {
     return {};
