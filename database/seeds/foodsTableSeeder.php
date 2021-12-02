@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 
-class foodsTableSeeder extends Seeder
+class FoodsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
