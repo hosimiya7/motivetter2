@@ -9,10 +9,6 @@ const store = new Vuex.Store({
         selectedMainCursor: 1,
         selectedSubCursor: 0,
         isInputMode: false,
-        goals: null,
-        characters: null,
-        shopPoint: null,
-        foods: [0, 0, 0, 0],
     },
     mutations: {
         incrementMainCursor(state) {

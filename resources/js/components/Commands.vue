@@ -301,9 +301,8 @@ export default {
           })
           .then(
             function(response) {
-              let exp = response.data.exp;
-              this.newExp = exp;
-              this.$emit("postExpData", this.newExp);
+              let character = response.data;
+              this.$emit("postCharaData", character);
             }.bind(this)
           )
           .catch(
