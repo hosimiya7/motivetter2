@@ -8,7 +8,6 @@
             :foods="this.foods"
             v-on:postGoalData="reflectGoal"
             v-on:postCharaData="reflectCharacter"
-            v-on:postExpData="reflectExp"
             v-on:postPointData="reflectshopPoint"
             v-on:postFoodData="reflectFood"
           ></Commands>
@@ -127,14 +126,11 @@ export default {
       this.love = chara.love;
       this.growth = chara.growth;
     },
-    reflectExp(exp) {
-      this.exp = exp;
-    },
     reflectshopPoint(point) {
       this.point = point;
     },
     reflectFood(foods) {
-      console.log(foods)
+      console.log(foods);
       this.foods = foods;
     }
   }
