@@ -7,7 +7,8 @@
         <div
           v-for="food in this.foods"
           v-bind:key="food.id"
-          v-bind:class="{active: $store.state.selectedSubCursor === (food.id - 1)}"
+          v-bind:class="{active: $store.state.selectedSubCursor === (food.id - 1), strikethrough: food.quantity <= 0}"
+          class="chara-index-food-item"
         >
           <span v-text="food.name"></span>
           <input type="text" :id="`food_${food.id}`" placeholder="数値" />

@@ -201,7 +201,22 @@ h1 {
                 }
             }
         }
-        .chara-food {
+        .chara-index-food {
+            .active {
+                position: relative;
+                &::before {
+                    display: block;
+                    content: "▲";
+                    transform: rotate(90deg);
+                    position: absolute;
+                    left: 5em;
+                    top: 0;
+                }
+            }
+            &-item{
+                display: inline-block;
+                width: 40%;
+            }
             input {
                 width: 40px;
                 outline: none;
