@@ -32,6 +32,10 @@ class CharacterController extends Controller
 
     public function updateExp(Request $request)
     {
+
+         /**
+         * @var User $user
+         */
         $user = Auth::user();
 
         $goal = $user->goal->orderBy('created_at', 'desc')->first();
@@ -59,7 +63,7 @@ class CharacterController extends Controller
 
         $character->save();
 
-        return $character;
+        return $user->character()->with('characterTemplate')->first();
     }
 
     public function food(Request $request)
