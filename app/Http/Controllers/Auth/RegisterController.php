@@ -78,6 +78,13 @@ class RegisterController extends Controller
             $character->user_id = $user->id;
             $character->save();
 
+            $belonging = new \App\Models\Belonging;
+            $ate_food = new \App\Models\AteFood;
+            for ($i=0; $i < 4; $i++) {
+                $belonging->insert(['user_id' => $user->id,'food_id' => $i + 1]);
+                $ate_food->insert(['user_id' => $user->id,'food_id' => $i + 1]);
+            }
+
             return $user;
         });
 
