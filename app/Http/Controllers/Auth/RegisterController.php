@@ -84,8 +84,9 @@ class RegisterController extends Controller
             $foods = \App\Models\Food::all();
 
             foreach($foods as $food){
-                $belonging->insert(['user_id' => $user->id, 'food_id' => $food->id]);
-                $ate_food->insert(['user_id' => $user->id, 'food_id' => $food->id]);
+                $food_data = ['user_id' => $user->id, 'food_id' => $food->id];
+                $belonging->insert($food_data);
+                $ate_food->insert($food_data);
             }
 
             return $user;
