@@ -26,7 +26,6 @@ class CharacterController extends Controller
 
     public function delete(Request $request)
     {
-        // 今まで食べたご飯を消す
         return Character::getRenewCharacter(Auth::User());
     }
 
