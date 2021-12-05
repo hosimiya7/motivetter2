@@ -25,7 +25,7 @@ class Character extends Model
 
         // 食べたもの削除
         $ate_foods = $user->ate_foods()->get();
-        foreach ($ate_foods as $ate_food){
+        foreach ($ate_foods as $ate_food) {
             $ate_food->quantity = 0;
             $ate_food->save();
         }

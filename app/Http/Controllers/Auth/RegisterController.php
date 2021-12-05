@@ -81,11 +81,11 @@ class RegisterController extends Controller
             $belonging = new \App\Models\Belonging();
             $ate_food = new \App\Models\AteFood();
 
-            $food = DB::table('foods')->get();
+            $foods = \App\Models\Food::all();
 
-            for ($i = 0; $i < count($food); $i++) {
-                $belonging->insert(['user_id' => $user->id, 'food_id' => $i + 1]);
-                $ate_food->insert(['user_id' => $user->id, 'food_id' => $i + 1]);
+            foreach($foods as $food){
+                $belonging->insert(['user_id' => $user->id, 'food_id' => $food->id]);
+                $ate_food->insert(['user_id' => $user->id, 'food_id' => $food->id]);
             }
 
             return $user;
