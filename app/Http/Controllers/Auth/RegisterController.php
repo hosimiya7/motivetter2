@@ -68,21 +68,24 @@ class RegisterController extends Controller
 
         $user = DB::transaction(function () use ($data) {
             // 更新処理
-            $user = new \App\Models\User;
+            $user = new \App\Models\User();
             $user->name = $data['name'];
             $user->email = $data['email'];
             $user->password = Hash::make($data['password']);
             $user->save();
 
-            $character = new \App\Models\Character;
+            $character = new \App\Models\Character();
             $character->user_id = $user->id;
             $character->save();
 
-            $belonging = new \App\Models\Belonging;
-            $ate_food = new \App\Models\AteFood;
-            for ($i=0; $i < 4; $i++) {
-                $belonging->insert(['user_id' => $user->id,'food_id' => $i + 1]);
-                $ate_food->insert(['user_id' => $user->id,'food_id' => $i + 1]);
+            $belonging = new \App\Models\Belonging();
+            $ate_food = new \App\Models\AteFood();
+
+            $food = DB::table('foods')->get();
+
+            for ($i = 0; $i < count($food); $i++) {
+                $belonging->insert(['user_id' => $user->id, 'food_id' => $i + 1]);
+                $ate_food->insert(['user_id' => $user->id, 'food_id' => $i + 1]);
             }
 
             return $user;
