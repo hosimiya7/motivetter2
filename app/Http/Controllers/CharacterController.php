@@ -32,7 +32,7 @@ class CharacterController extends Controller
     public function updateExp(Request $request)
     {
 
-         /**
+        /**
          * @var User $user
          */
         $user = Auth::user();
@@ -77,22 +77,14 @@ class CharacterController extends Controller
 
         foreach ($food_quantities as $num => $food_quantity) {
             $belongings = $user->belongings()->where('food_id', $num + 1)->first();
-            if ($belongings === null) {
-                $user->belongings()->create(['food_id' => $num + 1, 'quantity' => $food_quantity !== null ? $food_quantity : 0]);
-            } else {
-                $belongings->quantity -= $food_quantity;
-                $belongings->save();
-            }
+            $belongings->quantity -= $food_quantity;
+            $belongings->save();
         }
 
         foreach ($food_quantities as $num => $food_quantity) {
             $ate_foods = $user->ate_foods()->where('food_id', $num + 1)->first();
-            if ($ate_foods === null) {
-                $user->ate_foods()->create(['food_id' => $num + 1, 'quantity' => $food_quantity !== null ? $food_quantity : 0]);
-            } else {
-                $ate_foods->quantity += $food_quantity;
-                $ate_foods->save();
-            }
+            $ate_foods->quantity += $food_quantity;
+            $ate_foods->save();
         }
 
         return $user->belongings()->get();
