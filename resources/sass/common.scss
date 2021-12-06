@@ -274,3 +274,22 @@ h1 {
         }
     }
 }
+
+.game-index-food {
+    margin-top: 1rem;
+    .active {
+        position: relative;
+        &::before {
+            display: block;
+            content: "▲";
+            transform: rotate(90deg);
+            position: absolute;
+            left: 4em;
+            top: 0;
+        }
+    }
+    &-item{
+        display: inline-block;
+        width: 40%;
+    }
+}
