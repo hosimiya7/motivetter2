@@ -65,6 +65,7 @@ class CharacterController extends Controller
         return $user->character()->with('characterTemplate')->first();
     }
 
+    // えさやり
     public function food(Request $request)
     {
         /**
@@ -72,19 +73,19 @@ class CharacterController extends Controller
          */
         $user = Auth::User();
 
-        // 一定数で好感度を上げる　0以上でないといけない nameを紐づけたい
+        // 一定数で好感度を上げる　所持している餌が0以上でないといけない nameを紐づけたい
         $food_quantities = [$request->food_1, $request->food_2, $request->food_3, $request->food_4];
+
 
         foreach ($food_quantities as $num => $food_quantity) {
             $belongings = $user->belongings()->where('food_id', $num + 1)->first();
-            $belongings->quantity -= $food_quantity;
-            $belongings->save();
-        }
-
-        foreach ($food_quantities as $num => $food_quantity) {
             $ate_foods = $user->ate_foods()->where('food_id', $num + 1)->first();
+            $belongings->quantity -= $food_quantity;
             $ate_foods->quantity += $food_quantity;
-            $ate_foods->save();
+            if($belongings->quantity >= 0){
+                $belongings->save();
+                $ate_foods->save();
+            }
         }
 
         return $user->belongings()->get();

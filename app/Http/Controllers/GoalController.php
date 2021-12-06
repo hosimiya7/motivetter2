@@ -15,7 +15,6 @@ class GoalController extends Controller
 
     public function create(Request $request)
     {
-        // user_idが一致してない
         /**
          * @var User $user
          */
@@ -26,7 +25,7 @@ class GoalController extends Controller
                     'user_id' => $user->id,
                     'goal' => $request->goal,
                     'number' => $request->number,
-                    'unit' => $request->unit
+                    'unit' => $request->unit,
                 ]
             );
         } else {
