@@ -6,8 +6,8 @@
       <div class="chara-index-food">
         <div
           v-for="food in this.foods"
-          v-bind:key="food.id"
-          v-bind:class="{active: $store.state.selectedSubCursor === (food.id - 1), strikethrough: food.quantity <= 0}"
+          v-bind:key="food.food_id"
+          v-bind:class="{active: $store.state.selectedSubCursor === (food.food_id - 1), strikethrough: food.quantity <= 0}"
           class="chara-index-food-item"
         >
           <span v-text="food.name"></span>
@@ -27,12 +27,19 @@
 <script>
 export default {
   props: ["foods"],
-  created: function() {
+  created: function() {},
+  mounted: function() {
+    addEventListener("keyup", this.getSelecterSubCursor);
   },
   data() {
     return {
+      store: this.$store.state.selectedSubCursor,
     };
   },
-  methods: {}
+  methods: {
+    getSelecterSubCursor() {
+      this.store = this.$store.state.selectedSubCursor;
+    }
+  }
 };
 </script>
