@@ -54,18 +54,18 @@ class GameController extends Controller
         $belonging = $user->belongings()->where('food_id', $foodId)->first();
         $food = $user->belongings()->get();
 
-        if ($currentPoint - $price > 0) {
-            $point = $currentPoint - $price;
-            $user->point = $point;
-            $user->save();
-            // foodIdがrequestと同じものを探す。見つかれば個数を1増やす。見つからなければそのfoodIdの行を作る。
-            if ($belonging === null) {
-                $user->belongings()->create(['food_id' => $request->foodId, 'quantity' => 1]);
-            } else {
-                $quantity = $belonging->quantity + 1;
-                $belonging->quantity = $quantity;
-                $belonging->save();
+        // foodIdがrequestと同じものを探す。見つかれば個数を1増やす。見つからなければそのfoodIdの行を作る。
+        if ($belonging === null) {
+            $user->belongings()->create(['food_id' => $request->foodId, 'quantity' => 1]);
+        } else {
+            if ($currentPoint - $price > 0) {
+                $point = $currentPoint - $price;
+                $user->point = $point;
+                $user->save();
             }
+            $quantity = $belonging->quantity + 1;
+            $belonging->quantity = $quantity;
+            $belonging->save();
         }
 
         return [$food, $user];
@@ -82,7 +82,7 @@ class GameController extends Controller
         $query = Belonging::query()
             ->join('foods', 'belongings.food_id', '=', 'foods.id')
             ->where('user_id', $user->id)
-            ->select(['belongings.*', 'foods.name']);
+            ->select(['belongings.*', 'foods.name', 'foods.price']);
 
         return $query->get();
     }

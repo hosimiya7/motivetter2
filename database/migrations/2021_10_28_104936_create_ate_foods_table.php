@@ -15,8 +15,9 @@ class CreateAteFoodsTable extends Migration
     {
         Schema::create('ate_foods', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('food_id');
-            $table->integer('quantity');
+            $table->integer('quantity')->default(0)->comment('個数');
             $table->timestamps();
         });
     }
