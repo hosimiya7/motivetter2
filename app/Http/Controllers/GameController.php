@@ -54,19 +54,14 @@ class GameController extends Controller
         $belonging = $user->belongings()->where('food_id', $foodId)->first();
         $food = $user->belongings()->get();
 
-        // foodIdがrequestと同じものを探す。見つかれば個数を1増やす。見つからなければそのfoodIdの行を作る。
-        if ($belonging === null) {
-            $user->belongings()->create(['food_id' => $request->foodId, 'quantity' => 1]);
-        } else {
-            if ($currentPoint - $price > 0) {
-                $point = $currentPoint - $price;
-                $user->point = $point;
-                $user->save();
-            }
-            $quantity = $belonging->quantity + 1;
-            $belonging->quantity = $quantity;
-            $belonging->save();
+        if ($currentPoint - $price > 0) {
+            $point = $currentPoint - $price;
+            $user->point = $point;
+            $user->save();
         }
+        $quantity = $belonging->quantity + 1;
+        $belonging->quantity = $quantity;
+        $belonging->save();
 
         return [$food, $user];
     }
