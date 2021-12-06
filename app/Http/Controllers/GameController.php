@@ -82,7 +82,7 @@ class GameController extends Controller
         $query = Belonging::query()
             ->join('foods', 'belongings.food_id', '=', 'foods.id')
             ->where('user_id', $user->id)
-            ->select(['belongings.*', 'foods.name']);
+            ->select(['belongings.*', 'foods.name', 'foods.price']);
 
         return $query->get();
     }
