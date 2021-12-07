@@ -3,25 +3,15 @@
     <h3>▼ ハイ&amp;ロー 現在{{ this.point }}ポイント</h3>
 
     <div class="game-index">
-      <div class="coin-wrapper flex">
-        <p id="point">0</p>
-      </div>
-      <div class="start-button button-wrapper">
-        <input type="button" value="start" id="start" />
-      </div>
+      <span id="point_highAndLow">0</span>
+      <span v-bind:class="{active: this.$store.state.selectedSubCursor === 0}">start</span>
 
-      <div class="number-wrapper">
-        <p id="number">ここに数値が出ます</p>
-      </div>
+      <p id="number_highAndLow">ここに数値が出ます</p>
 
-      <div class="play-button button-wrapper">
-        <input type="button" value="high" id="high" />
-        <input type="button" value="low" id="low" />
-      </div>
+      <span v-bind:class="{active: this.$store.state.selectedSubCursor === 1}">high</span>
+      <span v-bind:class="{active: this.$store.state.selectedSubCursor === 2}">low</span>
 
-      <div class="reset-button button-wrapper">
-        <input type="button" value="reset" id="reset" />
-      </div>
+      <span v-bind:class="{active: this.$store.state.selectedSubCursor === 3}">reset</span>
     </div>
   </div>
 </template>

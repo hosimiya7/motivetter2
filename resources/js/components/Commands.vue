@@ -11,6 +11,7 @@
 import KeyHandler from "../KeyHandler";
 import Screen from "../Screen";
 import Omikuji from "../Omikuji";
+import HighAndLow from "../HighAndLow";
 import { MainCursor } from "../Cursor";
 import { SubCursor } from "../Cursor";
 
@@ -21,6 +22,7 @@ export default {
     this.subCursor = new SubCursor();
     this.screen = new Screen();
     this.omikuji = new Omikuji();
+    this.highAndLow = new HighAndLow();
   },
   mounted: function() {
     addEventListener("keyup", this.selectCommand);
@@ -60,6 +62,7 @@ export default {
           this.playOmikuji();
           this.postFoodId();
           this.postCharacterFood();
+          this.playHighAndLow();
           this.$store.commit("setScreenId", this.getNextScreenId());
           this.$store.state.selectedSubCursor = this.subCursor.INDENT1;
         }
@@ -176,6 +179,9 @@ export default {
         return 4;
       }
       if (this.$store.state.screenId === this.screen.CHARACTER_FAREWELL) {
+        return 1;
+      }
+      if (this.$store.state.screenId === this.screen.GAMEOMIKUJI) {
         return 1;
       }
       return 3;
@@ -377,6 +383,46 @@ export default {
         this.postShopPoint(this.omikuji.omikujiShopPoint());
       }
     },
+    playHighAndLow() {
+      if (
+        this.$store.state.screenId === this.screen.GAMEHIGHANDLOW &&
+        this.$store.state.selectedSubCursor === this.subCursor.INDENT1
+      ) {
+        this.highAndLow.startGame();
+      }
+      if (
+        this.$store.state.screenId === this.screen.GAMEHIGHANDLOW &&
+        this.$store.state.selectedSubCursor === this.subCursor.INDENT2
+      ) {
+        if (this.highAndLow.start === 1) {
+          if (this.highAndLow.randomNum <= this.highAndLow.nextNum) {
+            this.highAndLow.getPoint();
+          } else {
+            this.highAndLow.lostPoint();
+          }
+          this.highAndLow.playGame();
+        }
+      }
+      if (
+        this.$store.state.screenId === this.screen.GAMEHIGHANDLOW &&
+        this.$store.state.selectedSubCursor === this.subCursor.INDENT3
+      ) {
+        if (this.highAndLow.start === 1) {
+          if (this.highAndLow.randomNum >= this.highAndLow.nextNum) {
+            this.highAndLow.getPoint();
+          } else {
+            this.highAndLow.lostPoint();
+          }
+          this.highAndLow.playGame();
+        }
+      }
+      if (
+        this.$store.state.screenId === this.screen.GAMEHIGHANDLOW &&
+        this.$store.state.selectedSubCursor === this.subCursor.INDENT4
+      ) {
+        this.highAndLow.resetGame()
+      }
+    },
     postShopPoint(point) {
       window.axios
         .post("api/game/postPoint", {
@@ -395,6 +441,7 @@ export default {
         );
     },
     postFoodId() {
+      // えさをかったら名前のデータが呼ばれてなかった。
       if (this.$store.state.screenId === this.screen.GAMEFOODSHOP) {
         window.axios
           .post("api/game/postFood", {
