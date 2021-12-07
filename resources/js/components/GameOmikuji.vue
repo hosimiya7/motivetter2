@@ -6,21 +6,19 @@
         <div id="selected">今日の運勢は…？</div>
       </div>
       <div class="start">
-        <button v-bind:class="{active: this.$store.state.selectedSubCursor === 0}">はじめる</button>
+        <span v-bind:class="{active: this.$store.state.selectedSubCursor === 0}">はじめる</span>
       </div>
       <div class="stop">
-        <button v-bind:class="{active: this.$store.state.selectedSubCursor === 1}">とめる</button>
+        <span v-bind:class="{active: this.$store.state.selectedSubCursor === 1}">とめる</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Omikuji from "../Omikuji";
 export default {
   props: ["point"],
   created: function() {
-    this.omikuji = new Omikuji();
   },
   mounted: function() {},
   data() {

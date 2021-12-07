@@ -46,7 +46,6 @@ class CharacterController extends Controller
             $gotExp = 100;
         }
 
-        // 実行をしないと動かない。user_idが違う…。
         $character = $user->character;
         $currentExp = $character->exp;
         $character->exp = ($currentExp + $gotExp);
@@ -73,9 +72,8 @@ class CharacterController extends Controller
          */
         $user = Auth::User();
 
-        // 一定数で好感度を上げる　所持している餌が0以上でないといけない nameを紐づけたい
+        // 一定数で好感度を上げる　所持している餌が0以上でないといけない
         $food_quantities = [$request->food_1, $request->food_2, $request->food_3, $request->food_4];
-
 
         foreach ($food_quantities as $num => $food_quantity) {
             $belongings = $user->belongings()->where('food_id', $num + 1)->first();
