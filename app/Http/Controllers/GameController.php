@@ -52,16 +52,22 @@ class GameController extends Controller
         $currentPoint = $user->point;
 
         $belonging = $user->belongings()->where('food_id', $foodId)->first();
-        $food = $user->belongings()->get();
 
         if ($currentPoint - $price > 0) {
             $point = $currentPoint - $price;
             $user->point = $point;
             $user->save();
+
+            $quantity = $belonging->quantity + 1;
+            $belonging->quantity = $quantity;
+            $belonging->save();
         }
-        $quantity = $belonging->quantity + 1;
-        $belonging->quantity = $quantity;
-        $belonging->save();
+
+        $food = $user
+            ->belongings()
+            ->join('foods', 'belongings.food_id', '=', 'foods.id')
+            ->select(['belongings.*', 'foods.name', 'foods.price'])
+            ->get();
 
         return [$food, $user];
     }

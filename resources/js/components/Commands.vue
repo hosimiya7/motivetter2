@@ -401,29 +401,27 @@ export default {
       }
       if (
         this.$store.state.screenId === this.screen.GAMEHIGHANDLOW &&
-        this.$store.state.selectedSubCursor === this.subCursor.INDENT2
+        this.$store.state.selectedSubCursor === this.subCursor.INDENT2 &&
+        this.highAndLow.start === 1
       ) {
-        if (this.highAndLow.start === 1) {
-          if (this.highAndLow.randomNum <= this.highAndLow.nextNum) {
-            this.highAndLow.getPoint();
-          } else {
-            this.highAndLow.lostPoint();
-          }
-          this.highAndLow.playGame();
+        if (this.highAndLow.randomNum <= this.highAndLow.nextNum) {
+          this.highAndLow.getPoint();
+        } else {
+          this.highAndLow.lostPoint();
         }
+        this.highAndLow.playGame();
       }
       if (
         this.$store.state.screenId === this.screen.GAMEHIGHANDLOW &&
-        this.$store.state.selectedSubCursor === this.subCursor.INDENT3
+        this.$store.state.selectedSubCursor === this.subCursor.INDENT3 &&
+        this.highAndLow.start === 1
       ) {
-        if (this.highAndLow.start === 1) {
-          if (this.highAndLow.randomNum >= this.highAndLow.nextNum) {
-            this.highAndLow.getPoint();
-          } else {
-            this.highAndLow.lostPoint();
-          }
-          this.highAndLow.playGame();
+        if (this.highAndLow.randomNum >= this.highAndLow.nextNum) {
+          this.highAndLow.getPoint();
+        } else {
+          this.highAndLow.lostPoint();
         }
+        this.highAndLow.playGame();
       }
       if (
         this.$store.state.screenId === this.screen.GAMEHIGHANDLOW &&
@@ -455,7 +453,6 @@ export default {
         );
     },
     postFoodId() {
-      // えさをかったら名前のデータが呼ばれてなかった。
       if (this.$store.state.screenId === this.screen.GAMEFOODSHOP) {
         window.axios
           .post("api/game/postFood", {
@@ -463,7 +460,8 @@ export default {
           })
           .then(
             function(response) {
-              console.log(response["data"][0]);
+              console.log(response["data"]);
+              console.log(response["data"][1].point);
               this.point = response["data"][1].point;
               this.$emit("postPointData", this.point);
               this.food = response["data"][0];
