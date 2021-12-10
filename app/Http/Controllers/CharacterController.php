@@ -80,12 +80,16 @@ class CharacterController extends Controller
             $ate_foods = $user->ate_foods()->where('food_id', $num + 1)->first();
             $belongings->quantity -= $food_quantity;
             $ate_foods->quantity += $food_quantity;
-            if($belongings->quantity >= 0){
+            if ($belongings->quantity >= 0) {
                 $belongings->save();
                 $ate_foods->save();
             }
         }
 
-        return $user->belongings()->get();
+        return $user
+            ->belongings()
+            ->join('foods', 'belongings.food_id', '=', 'foods.id')
+            ->select(['belongings.*', 'foods.name', 'foods.price'])
+            ->get();
     }
 }
