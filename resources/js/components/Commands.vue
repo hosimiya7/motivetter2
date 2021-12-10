@@ -184,6 +184,9 @@ export default {
       if (this.$store.state.screenId === this.screen.GAMEOMIKUJI) {
         return 1;
       }
+      if (this.$store.state.screenId === this.screen.GAMEHIGHANDLOW) {
+        return 4;
+      }
       return 3;
     },
     isInputMode() {
@@ -385,6 +388,12 @@ export default {
     },
     playHighAndLow() {
       if (
+        this.$store.state.screenId === this.screen.GAME &&
+        this.$store.state.selectedSubCursor === this.subCursor.INDENT2
+      ) {
+        this.highAndLow.setGame();
+      }
+      if (
         this.$store.state.screenId === this.screen.GAMEHIGHANDLOW &&
         this.$store.state.selectedSubCursor === this.subCursor.INDENT1
       ) {
@@ -420,7 +429,12 @@ export default {
         this.$store.state.screenId === this.screen.GAMEHIGHANDLOW &&
         this.$store.state.selectedSubCursor === this.subCursor.INDENT4
       ) {
-        this.highAndLow.resetGame()
+        this.highAndLow.resetGame();
+      }
+    },
+    escHighAndLow() {
+      if (this.$store.state.screenId === this.screen.GAMEHIGHANDLOW) {
+        this.highAndLow.resetGame();
       }
     },
     postShopPoint(point) {

@@ -23,7 +23,7 @@ h1 {
     margin-top: 1em;
 }
 
-.strikethrough{
+.strikethrough {
     text-decoration: line-through;
 }
 
@@ -213,7 +213,7 @@ h1 {
                     top: 0;
                 }
             }
-            &-item{
+            &-item {
                 display: inline-block;
                 width: 40%;
             }
@@ -256,7 +256,7 @@ h1 {
                 content: "▲";
                 transform: rotate(90deg);
                 position: absolute;
-                left: -2em;
+                left: -1.5em;
                 top: 0;
             }
         }
@@ -267,9 +267,27 @@ h1 {
                 &:first-child {
                     margin-right: 19em;
                 }
-                .margin-none{
+                .margin-none {
                     margin: 0;
                 }
+            }
+        }
+    }
+    .game-index-highAndLow {
+        margin-top: -1.2rem;
+        position: relative;
+        .coin {
+            position: absolute;
+            top: -1rem;
+            right: 10px;
+        }
+        .select-item {
+            margin-top: 1rem;
+            span {
+                margin: 0 1em;
+                display: inline-block;
+                width: 35px;
+                text-align: left;
             }
         }
     }
@@ -288,7 +306,7 @@ h1 {
             top: 0;
         }
     }
-    &-item{
+    &-item {
         display: inline-block;
         width: 40%;
     }

@@ -13,6 +13,11 @@ export default class HighAndLow {
         this.start = 0
     }
 
+    setGame() {
+        this.point = 1
+        this.start = 0
+    }
+
     setRandomNumber() {
         return Math.floor(Math.random() * 13) + 1
     }
@@ -53,7 +58,7 @@ export default class HighAndLow {
     }
 
     lostPoint() {
-        this.point = 'コインが0になりました'
+        this.point = 0
         this.start = 0
     }
 
@@ -62,6 +67,6 @@ export default class HighAndLow {
     }
 
     clearNumber() {
-        document.getElementById("number_highAndLow").innerHTML = 'ここに数値が出ます'
+        document.getElementById("number_highAndLow").innerHTML = '最大値は13です。次の数値の大小を予測してください。'
     }
 }
