@@ -7,6 +7,7 @@ use App\Models\Food;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class GameController extends Controller
 {
@@ -86,5 +87,15 @@ class GameController extends Controller
             ->select(['belongings.*', 'foods.name', 'foods.price']);
 
         return $query->get();
+    }
+
+    public function payHighAndLowPoint()
+    {
+        $user = Auth::user();
+        $user->point -= 1;
+        // なんでエラー？動作はする
+        $user->save();
+
+        return $user->point;
     }
 }

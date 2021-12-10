@@ -6,6 +6,7 @@
         <div class="command">
           <Commands
             :foods="this.foods"
+            :point="this.point"
             v-on:postGoalData="reflectGoal"
             v-on:postCharaData="reflectCharacter"
             v-on:postPointData="reflectshopPoint"
@@ -130,7 +131,6 @@ export default {
       this.point = point;
     },
     reflectFood(foods) {
-      console.log(foods);
       this.foods = foods;
     }
   }

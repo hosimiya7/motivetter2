@@ -30,4 +30,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('api/game/showPoint', 'GameController@showPoint')->name('game.showPoint');
     Route::post('api/game/postFood', 'GameController@postFood')->name('game.postFood');
     Route::get('api/game/showFood', 'GameController@showFood')->name('game.showFood');
+    Route::post('api/game/payHighAndLowPoint', 'GameController@payHighAndLowPoint')->name('game.payHighAndLowPoint');
 });

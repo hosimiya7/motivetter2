@@ -359,7 +359,6 @@ export default {
           })
           .then(
             function(response) {
-              console.log(response);
               this.food = response["data"];
               this.$emit("postFoodData", this.food);
             }.bind(this)
@@ -398,6 +397,7 @@ export default {
         this.$store.state.selectedSubCursor === this.subCursor.INDENT1
       ) {
         this.highAndLow.startGame();
+        this.payHighAndLowpoint();
       }
       if (
         this.$store.state.screenId === this.screen.GAMEHIGHANDLOW &&
@@ -435,6 +435,21 @@ export default {
         this.highAndLow.resetGame();
       }
     },
+    payHighAndLowpoint() {
+      window.axios
+          .post("api/game/payHighAndLowPoint")
+          .then(
+            function(response) {
+              this.point = response["data"];
+              this.$emit("postPointData", this.point);
+            }.bind(this)
+          )
+          .catch(
+            function(error) {
+              console.log(error);
+            }.bind(this)
+          );
+    },
     postShopPoint(point) {
       window.axios
         .post("api/game/postPoint", {
@@ -460,8 +475,6 @@ export default {
           })
           .then(
             function(response) {
-              console.log(response["data"]);
-              console.log(response["data"][1].point);
               this.point = response["data"][1].point;
               this.$emit("postPointData", this.point);
               this.food = response["data"][0];
