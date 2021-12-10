@@ -91,9 +91,23 @@ class GameController extends Controller
 
     public function payHighAndLowPoint()
     {
+        /**
+         * @var User $user
+         */
         $user = Auth::user();
         $user->point -= 1;
-        // なんでエラー？動作はする
+        $user->save();
+
+        return $user->point;
+    }
+
+    public function postHighAndLowPoint(Request $request)
+    {
+        /**
+         * @var User $user
+         */
+        $user = Auth::user();
+        $user->point += $request->point;
         $user->save();
 
         return $user->point;

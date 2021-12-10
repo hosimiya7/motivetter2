@@ -385,6 +385,7 @@ export default {
         this.postShopPoint(this.omikuji.omikujiShopPoint());
       }
     },
+    // startのできる状態かをif文に追加する。isPlayingGame()を使いたい
     playHighAndLow() {
       if (
         this.$store.state.screenId === this.screen.GAME &&
@@ -401,25 +402,27 @@ export default {
       }
       if (
         this.$store.state.screenId === this.screen.GAMEHIGHANDLOW &&
-        this.$store.state.selectedSubCursor === this.subCursor.INDENT2 &&
-        this.highAndLow.start === 1
+        this.$store.state.selectedSubCursor === this.subCursor.INDENT2
       ) {
         if (this.highAndLow.randomNum <= this.highAndLow.nextNum) {
           this.highAndLow.getPoint();
+          this.$store.state.selectedSubCursor = this.subCursor.INDENT2
         } else {
           this.highAndLow.lostPoint();
+          this.$store.state.selectedSubCursor = this.subCursor.INDENT4
         }
         this.highAndLow.playGame();
       }
       if (
         this.$store.state.screenId === this.screen.GAMEHIGHANDLOW &&
-        this.$store.state.selectedSubCursor === this.subCursor.INDENT3 &&
-        this.highAndLow.start === 1
+        this.$store.state.selectedSubCursor === this.subCursor.INDENT3
       ) {
         if (this.highAndLow.randomNum >= this.highAndLow.nextNum) {
           this.highAndLow.getPoint();
+          this.$store.state.selectedSubCursor = this.subCursor.INDENT2
         } else {
           this.highAndLow.lostPoint();
+          this.$store.state.selectedSubCursor = this.subCursor.INDENT4
         }
         this.highAndLow.playGame();
       }
@@ -427,6 +430,13 @@ export default {
         this.$store.state.screenId === this.screen.GAMEHIGHANDLOW &&
         this.$store.state.selectedSubCursor === this.subCursor.INDENT4
       ) {
+        this.highAndLow.resetGame();
+      }
+      if (
+        this.$store.state.screenId === this.screen.GAMEHIGHANDLOW &&
+        this.$store.state.selectedSubCursor === this.subCursor.INDENT5
+      ) {
+        this.postHighAndLowPoint();
         this.highAndLow.resetGame();
       }
     },
@@ -437,18 +447,36 @@ export default {
     },
     payHighAndLowpoint() {
       window.axios
-          .post("api/game/payHighAndLowPoint")
-          .then(
-            function(response) {
-              this.point = response["data"];
-              this.$emit("postPointData", this.point);
-            }.bind(this)
-          )
-          .catch(
-            function(error) {
-              console.log(error);
-            }.bind(this)
-          );
+        .post("api/game/payHighAndLowPoint")
+        .then(
+          function(response) {
+            this.point = response["data"];
+            this.$emit("postPointData", this.point);
+          }.bind(this)
+        )
+        .catch(
+          function(error) {
+            console.log(error);
+          }.bind(this)
+        );
+    },
+    postHighAndLowPoint() {
+      window.axios
+        .post("api/game/postHighAndLowPoint", {
+          point: this.highAndLow.point
+        })
+        .then(
+          function(response) {
+            console.log(response);
+            this.point = response["data"];
+            this.$emit("postPointData", this.point);
+          }.bind(this)
+        )
+        .catch(
+          function(error) {
+            console.log(error);
+          }.bind(this)
+        );
     },
     postShopPoint(point) {
       window.axios
