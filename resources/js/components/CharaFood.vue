@@ -11,7 +11,7 @@
           class="chara-index-food-item"
         >
           <span v-text="food.name"></span>
-          <input type="text" :id="`food_${food.id}`" placeholder="数値" />
+          <input type="text" :id="`food_${food.food_id}`" placeholder="数値" />
           <span v-text="food.quantity"></span>
           <span>個</span>
         </div>
