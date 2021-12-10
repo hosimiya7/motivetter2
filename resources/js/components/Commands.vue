@@ -406,10 +406,10 @@ export default {
       ) {
         if (this.highAndLow.randomNum <= this.highAndLow.nextNum) {
           this.highAndLow.getPoint();
-          this.$store.state.selectedSubCursor = this.subCursor.INDENT2
+          // this.$store.state.selectedSubCursor = this.subCursor.INDENT2
         } else {
           this.highAndLow.lostPoint();
-          this.$store.state.selectedSubCursor = this.subCursor.INDENT4
+          // this.$store.state.selectedSubCursor = this.subCursor.INDENT4
         }
         this.highAndLow.playGame();
       }
@@ -419,10 +419,10 @@ export default {
       ) {
         if (this.highAndLow.randomNum >= this.highAndLow.nextNum) {
           this.highAndLow.getPoint();
-          this.$store.state.selectedSubCursor = this.subCursor.INDENT2
+          // this.$store.state.selectedSubCursor = this.subCursor.INDENT2
         } else {
           this.highAndLow.lostPoint();
-          this.$store.state.selectedSubCursor = this.subCursor.INDENT4
+          // this.$store.state.selectedSubCursor = this.subCursor.INDENT4
         }
         this.highAndLow.playGame();
       }

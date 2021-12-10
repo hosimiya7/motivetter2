@@ -6,16 +6,19 @@ export default class HighAndLow {
     start
     startButton
 
+    PLAYINGGAME = 1
+    NOTPLAYINGGAME = 0
+
     constructor() {
         this.randomNum = this.setRandomNumber()
         this.nextNum = this.setRandomNumber()
         this.point = 1
-        this.start = 0
+        this.start = this.NOTPLAYINGGAME
     }
 
     setGame() {
         this.point = 1
-        this.start = 0
+        this.start = this.NOTPLAYINGGAME
     }
 
     setRandomNumber() {
@@ -23,7 +26,8 @@ export default class HighAndLow {
     }
 
     startGame() {
-        this.start = 1
+        this.point = 1
+        this.start = this.PLAYINGGAME
         this.setNumber()
         this.setPoint()
     }
@@ -59,14 +63,19 @@ export default class HighAndLow {
 
     lostPoint() {
         this.point = 0
-        this.start = 0
+        this.start = this.NOTPLAYINGGAME
     }
 
     resetPoint() {
-        this.point = 1
+        this.point = this.NOTPLAYINGGAME
     }
 
     clearNumber() {
         document.getElementById("number_highAndLow").innerHTML = '最大値は13です。次の数値の大小を予測してください。'
     }
+
+    isPlayingGame() {
+        this.start === this.PLAYINGGAME
+    }
+
 }
